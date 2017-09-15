@@ -1,12 +1,12 @@
 // Copyright (C) 2012-2015, Bernd Doser (service@braintwister.eu)
 // All rights reserved.
 //
-// This file is part of BlasBooster
+// This file is part of BrainTwister
 //
 // ANY USE OF THIS CODE CONSTITUTES ACCEPTANCE OF THE
 // TERMS OF THE COPYRIGHT NOTICE
 
-#include "BlasBooster/Utilities/Settings.h"
+#include "BrainTwister/Settings.h"
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -16,17 +16,17 @@
 
 // Test nested structures
 
-BLASBOOSTER_SETTINGS(A, \
+BRAINTWISTER_SETTINGS(A, \
     ((int, i, 0)) \
 	((double, d, 0.0)) \
 )
 
-BLASBOOSTER_SETTINGS(B, \
+BRAINTWISTER_SETTINGS(B, \
 	((int, i, 0)) \
 	((A, a, A())) \
 )
 
-BLASBOOSTER_SETTINGS(C, \
+BRAINTWISTER_SETTINGS(C, \
 	((std::vector<A>, v, std::vector<A>())) \
 )
 

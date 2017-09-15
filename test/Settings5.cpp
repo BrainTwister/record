@@ -1,12 +1,12 @@
 // Copyright (C) 2012-2015, Bernd Doser (service@braintwister.eu)
 // All rights reserved.
 //
-// This file is part of BlasBooster
+// This file is part of BrainTwister
 //
 // ANY USE OF THIS CODE CONSTITUTES ACCEPTANCE OF THE
 // TERMS OF THE COPYRIGHT NOTICE
 
-#include "BlasBooster/Utilities/Settings.h"
+#include "BrainTwister/Settings.h"
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -14,26 +14,26 @@
 #include <string>
 
 // Test polymorphism
-BLASBOOSTER_SETTINGS_BASE(SettingsBase, \
+BRAINTWISTER_SETTINGS_BASE(SettingsBase, \
 	((std::string, s1, "base")), \
 )
 
-BLASBOOSTER_SETTINGS_DERIVED(SettingsDerived1, SettingsBase, \
+BRAINTWISTER_SETTINGS_DERIVED(SettingsDerived1, SettingsBase, \
 	((int, i, 4)) \
 	((std::string, s2, "foo")), \
 )
 
-BLASBOOSTER_SETTINGS_DERIVED(SettingsDerived2, SettingsBase, \
+BRAINTWISTER_SETTINGS_DERIVED(SettingsDerived2, SettingsBase, \
 	((double, d, 2.3)) \
 	((std::string, s3, "bar")), \
 )
 
-BLASBOOSTER_SETTINGS_REGISTER(SettingsBase, \
+BRAINTWISTER_SETTINGS_REGISTER(SettingsBase, \
 	(SettingsDerived1) \
 	(SettingsDerived2) \
 )
 
-BLASBOOSTER_SETTINGS(Settings5, \
+BRAINTWISTER_SETTINGS(Settings5, \
 	((std::shared_ptr<SettingsBase>, p1, std::shared_ptr<SettingsBase>())) \
 	((std::shared_ptr<SettingsBase>, p2, std::shared_ptr<SettingsDerived1>())) \
 )

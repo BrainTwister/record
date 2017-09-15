@@ -6,7 +6,7 @@
 // ANY USE OF THIS CODE CONSTITUTES ACCEPTANCE OF THE
 // TERMS OF THE COPYRIGHT NOTICE
 
-#include "BlasBooster/Utilities/Settings.h"
+#include "BrainTwister/Settings.h"
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -16,13 +16,13 @@
 
 // Test std::vector
 
-BLASBOOSTER_SETTINGS(Settings, \
+BRAINTWISTER_SETTINGS(Settings, \
     ((int, i, 0)) \
 	((double, d, 0.0)) \
 	((std::string, s, "foo")) \
 )
 
-BLASBOOSTER_SETTINGS(Settings2, \
+BRAINTWISTER_SETTINGS(Settings2, \
 	((std::vector<int>, v1, (std::vector<int>{5, -9}))) \
 	((std::vector<Settings>, v2, std::vector<Settings>())) \
 )

@@ -1,12 +1,12 @@
 // Copyright (C) 2012-2015, Bernd Doser (service@braintwister.eu)
 // All rights reserved.
 //
-// This file is part of BlasBooster
+// This file is part of BrainTwister
 //
 // ANY USE OF THIS CODE CONSTITUTES ACCEPTANCE OF THE
 // TERMS OF THE COPYRIGHT NOTICE
 
-#include "BlasBooster/Utilities/Settings.h"
+#include "BrainTwister/Settings.h"
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -15,7 +15,7 @@
 
 // Test simple types
 
-BLASBOOSTER_SETTINGS(Settings, \
+BRAINTWISTER_SETTINGS(Settings, \
     ((int, i, 0)) \
 	((double, d, 0.0)) \
 	((std::string, s, "foo")) \
@@ -28,7 +28,7 @@ TEST(Settings1Test, default)
 	EXPECT_EQ(0, settings.i);
 	EXPECT_EQ(0.0, settings.d);
 	EXPECT_EQ("foo", settings.s);
-	EXPECT_TRUE(BlasBooster::SettingsDetails::is_setting<Settings>::value);
+	//EXPECT_TRUE(BrainTwister::SettingsDetails::is_setting<Settings>::value);
 }
 
 TEST(Settings1Test, parameter_construction)

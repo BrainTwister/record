@@ -1,7 +1,6 @@
-#ifndef BLASBOOSTER_UTILITIES_SETTINGS_H_
-#define BLASBOOSTER_UTILITIES_SETTINGS_H_
+#ifndef BRAINTWISTER_SETTINGS_H_
+#define BRAINTWISTER_SETTINGS_H_
 
-#include "BlasBooster/Utilities/Filesystem.h"
 #include <boost/preprocessor/arithmetic/sub.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/control/if.hpp>
@@ -22,7 +21,7 @@
 #include <fstream>
 #include <type_traits>
 
-namespace BlasBooster {
+namespace BrainTwister {
 namespace SettingsDetails {
 
 template <class T>
@@ -146,23 +145,8 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
 	}
 };
 
-struct FileLoader
-{
-	boost::property_tree::ptree operator () (filesystem::path const& path) const
-	{
-		if (!exists(path)) throw std::runtime_error("File " + path.string() + " not found.");
-		std::ifstream ifs(path.string());
-		if (!ifs) throw std::runtime_error("Error opening file " + path.string());
-		boost::property_tree::ptree tree;
-		if (path.extension() == ".xml") read_xml(ifs, tree);
-		else if (path.extension() == ".json") read_json(ifs, tree);
-		else throw std::runtime_error("File type " + path.extension().string() + " not known.");
-		return tree;
-	}
-};
-
 } // namespace SettingsDetails
-} // namespace BlasBooster
+} // namespace BrainTwister
 
 // Initialization list of default constructor
 #define MACRO_SINGLE_INITIALIZE_DEFAULT(r,size,i,elem) \
@@ -209,7 +193,7 @@ struct FileLoader
 
 // List of arguments for loading by boost property tree
 #define MACRO_SINGLE_MEMBER_LOAD(r, size, i, elem) \
-    BOOST_PP_TUPLE_ELEM(3,1,elem)( ::BlasBooster::SettingsDetails::GenericLoader<BOOST_PP_TUPLE_ELEM(3,0,elem)>()(tree, \
+    BOOST_PP_TUPLE_ELEM(3,1,elem)( ::BrainTwister::SettingsDetails::GenericLoader<BOOST_PP_TUPLE_ELEM(3,0,elem)>()(tree, \
     BOOST_PP_STRINGIZE(BOOST_PP_TUPLE_ELEM(3,1,elem)), BOOST_PP_TUPLE_ELEM(3,2,elem))) \
 	BOOST_PP_COMMA_IF(BOOST_PP_SUB(BOOST_PP_SUB(size,i),1))
 
@@ -224,7 +208,7 @@ struct FileLoader
     BOOST_PP_SEQ_FOR_EACH(MACRO_SINGLE_MEMBER_SERIALIZATION,,SEQ)
 
 // Class definition
-#define BLASBOOSTER_SETTINGS(Name, Members) \
+#define BRAINTWISTER_SETTINGS(Name, Members) \
     struct Name \
     { \
 	    typedef bool is_setting; \
@@ -240,10 +224,6 @@ struct FileLoader
         Name(boost::property_tree::ptree const& tree) \
          : PRINT_CLASS_MEMBERS_LOAD(Members) \
         {} \
-\
-		Name(filesystem::path const& path) \
-		 : Name( ::BlasBooster::SettingsDetails::FileLoader()(path)) \
-		{} \
 \
 	    virtual ~Name() {}; \
 \
@@ -261,8 +241,8 @@ struct FileLoader
     };
 
 #if 0
-    template <> struct BlasBooster::SettingsDetails::is_setting<Name> : std::true_type {}; \
-    template <> struct BlasBooster::SettingsDetails::is_base_setting<Name> : std::false_type {};
+    template <> struct BrainTwister::SettingsDetails::is_setting<Name> : std::true_type {}; \
+    template <> struct BrainTwister::SettingsDetails::is_base_setting<Name> : std::false_type {};
 
 \
     private:\
@@ -278,10 +258,10 @@ struct FileLoader
 \
     BOOST_CLASS_EXPORT(Name);
 #endif
-// end macro BLASBOOSTER_SETTINGS
+// end macro BRAINTWISTER_SETTINGS
 
 // Base class definition
-#define BLASBOOSTER_SETTINGS_BASE(Name, Members, Supplements) \
+#define BRAINTWISTER_SETTINGS_BASE(Name, Members, Supplements) \
     struct Name \
     { \
         typedef bool is_setting; \
@@ -318,8 +298,8 @@ struct FileLoader
     };
 
 #if 0
-    template <> struct BlasBooster::SettingsDetails::is_setting<Name> : std::true_type {}; \
-    template <> struct BlasBooster::SettingsDetails::is_base_setting<Name> : std::true_type {};
+    template <> struct BrainTwister::SettingsDetails::is_setting<Name> : std::true_type {}; \
+    template <> struct BrainTwister::SettingsDetails::is_base_setting<Name> : std::true_type {};
 \
     private:\
 \
@@ -334,11 +314,11 @@ struct FileLoader
 \
     BOOST_CLASS_EXPORT(Name);
 #endif
-// end macro BLASBOOSTER_SETTINGS_BASE
+// end macro BRAINTWISTER_SETTINGS_BASE
 
 // Base class definition with no members
 // Members must be handled specially, because they can not be empty.
-#define BLASBOOSTER_SETTINGS_BASE_NO_MEMBERS(Name, Supplements) \
+#define BRAINTWISTER_SETTINGS_BASE_NO_MEMBERS(Name, Supplements) \
 	struct Name \
 	{ \
 		typedef bool is_setting; \
@@ -359,10 +339,10 @@ struct FileLoader
 		Supplements \
 \
 	};
-// end macro BLASBOOSTER_SETTINGS_BASE
+// end macro BRAINTWISTER_SETTINGS_BASE
 
 // Derived class definition
-#define BLASBOOSTER_SETTINGS_DERIVED(Name, Base, Members, Supplements) \
+#define BRAINTWISTER_SETTINGS_DERIVED(Name, Base, Members, Supplements) \
     struct Name : Base \
     { \
         typedef bool is_setting; \
@@ -400,8 +380,8 @@ struct FileLoader
     }; \
 
 #if 0
-    template <> struct BlasBooster::SettingsDetails::is_setting<Name> : std::true_type {}; \
-    template <> struct BlasBooster::SettingsDetails::is_base_setting<Name> : std::false_type {};
+    template <> struct BrainTwister::SettingsDetails::is_setting<Name> : std::true_type {}; \
+    template <> struct BrainTwister::SettingsDetails::is_base_setting<Name> : std::false_type {};
 
 \
     private:\
@@ -418,7 +398,7 @@ struct FileLoader
 \
     BOOST_CLASS_EXPORT_GUID(Name, BOOST_PP_STRINGIZE(Name));
 #endif
-// end macro BLASBOOSTER_SETTINGS_DERIVED
+// end macro BRAINTWISTER_SETTINGS_DERIVED
 
 // List of derived classes for switch
 #define MACRO_SINGLE_CASE_OF_DERIVED_CLASSES(r, Base, Derived) \
@@ -433,8 +413,8 @@ struct FileLoader
 // end macro PRINT_CASE_LIST_OF_DERIVED_CLASSES
 
 // Register for polymorphic classes
-#define BLASBOOSTER_SETTINGS_REGISTER(Base, DerivedList) \
-	namespace BlasBooster { \
+#define BRAINTWISTER_SETTINGS_REGISTER(Base, DerivedList) \
+	namespace BrainTwister { \
     namespace SettingsDetails { \
     template <> \
     std::shared_ptr<Base> PolymorphicLoader<Base>::operator()(boost::property_tree::ptree const& pt) const \
@@ -443,6 +423,6 @@ struct FileLoader
         throw std::runtime_error("Derived class " + pt.front().first + " not registered for " + BOOST_PP_STRINGIZE(Base) + "."); \
         return std::shared_ptr<Base>(); \
     }}}
-// end macro BLASBOOSTER_SETTINGS_REGISTER
+// end macro BRAINTWISTER_SETTINGS_REGISTER
 
-#endif // BLASBOOSTER_UTILITIES_SETTINGS_H_
+#endif // BRAINTWISTER_SETTINGS_H_

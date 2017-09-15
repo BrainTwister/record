@@ -1,12 +1,12 @@
 // Copyright (C) 2012-2015, Bernd Doser (service@braintwister.eu)
 // All rights reserved.
 //
-// This file is part of BlasBooster
+// This file is part of BrainTwister
 //
 // ANY USE OF THIS CODE CONSTITUTES ACCEPTANCE OF THE
 // TERMS OF THE COPYRIGHT NOTICE
 
-#include "BlasBooster/Utilities/Settings.h"
+#include "BrainTwister/Settings.h"
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -16,7 +16,7 @@
 
 // Test pointer
 
-BLASBOOSTER_SETTINGS(Settings4, \
+BRAINTWISTER_SETTINGS(Settings4, \
 	((std::shared_ptr<int>, ptr_i, std::shared_ptr<int>())) \
 )
 
