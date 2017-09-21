@@ -1,29 +1,28 @@
 set(TestName cpp-settings-test)
 
 include_directories(
-    ${PROJECT_SOURCE_DIR}/include
-    ${GTEST_INCLUDE_DIR}
-    ${Boost_INCLUDE_DIRS}
+  ${PROJECT_SOURCE_DIR}/include
+  ${GTEST_INCLUDE_DIR}
+  ${Boost_INCLUDE_DIRS}
 )
 
 add_executable(
-    ${TestName}
-    main.cpp
-    Settings1.cpp
-    Settings2.cpp
-    Settings3.cpp
-    Settings4.cpp
-    Settings5.cpp
+  ${TestName}
+  main.cpp
+  Settings1.cpp
+  Settings2.cpp
+  Settings3.cpp
+  Settings4.cpp
+  Settings5.cpp
 )
     
 target_link_libraries(
-    ${TestName}
-    ${Boost_LIBRARIES}
-    ${GTEST_BOTH_LIBRARIES}
-    -pthread
+  ${TestName}
+  ${CONAN_LIBS}
+  -pthread
 )
 
 add_test(
-    NAME ${TestName}
-    COMMAND ${TestName} --gtest_output=xml:${CMAKE_BINARY_DIR}/Testing/${TestName}.xml
+  NAME ${TestName}
+  COMMAND ${TestName} --gtest_output=xml:${CMAKE_BINARY_DIR}/Testing/${TestName}.xml
 )

@@ -6,7 +6,7 @@ pipeline {
     stage('Build-gcc-7') {
       agent {
         docker {
-          image 'bernddoser/docker-devel-cpp:ubuntu-17.04-gcc-7-gtest-1.8.0'
+          image 'bernddoser/docker-devel-cpp:ubuntu-17.04-gcc-7-conan-0.26.1'
           reuseNode true
         }
       }
@@ -14,6 +14,7 @@ pipeline {
         sh '''
           mkdir -p build-gcc-7
           cd build-gcc-7
+          conan install ..
           cmake ..
           make 2>&1 |tee make.out
         '''
@@ -32,7 +33,7 @@ pipeline {
     stage('Build-clang-4.0') {
       agent {
         docker {
-          image 'bernddoser/docker-devel-cpp:ubuntu-16.04-clang-4.0-gtest-1.8.0'
+          image 'bernddoser/docker-devel-cpp:ubuntu-16.04-clang-4.0-conan-0.26.1'
           reuseNode true
         }
       }
@@ -40,6 +41,7 @@ pipeline {
         sh '''
           mkdir -p build-clang-4.0
           cd build-clang-4.0
+          conan install ..
           cmake ..
           make 2>&1 |tee make.out
         '''
@@ -58,7 +60,7 @@ pipeline {
     stage('Test-gcc-7') {
       agent {
         docker {
-          image 'bernddoser/docker-devel-cpp:ubuntu-17.04-gcc-7-gtest-1.8.0'
+          image 'bernddoser/docker-devel-cpp:ubuntu-17.04-gcc-7-conan-0.26.1'
           reuseNode true
         }
       }
@@ -78,7 +80,7 @@ pipeline {
     stage('Test-clang-4.0') {
       agent {
         docker {
-          image 'bernddoser/docker-devel-cpp:ubuntu-16.04-clang-4.0-gtest-1.8.0'
+          image 'bernddoser/docker-devel-cpp:ubuntu-16.04-clang-4.0-conan-0.26.1'
           reuseNode true
         }
       }
@@ -98,7 +100,7 @@ pipeline {
     stage('Deploy') {
       agent {
         docker {
-          image 'bernddoser/docker-devel-cpp:ubuntu-17.04-gcc-7-gtest-1.8.0'
+          image 'bernddoser/docker-devel-cpp:ubuntu-17.04-gcc-7-conan-0.26.1'
           reuseNode true
         }
       }
