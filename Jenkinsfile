@@ -14,7 +14,7 @@ pipeline {
         sh '''
           mkdir -p build-gcc-7
           cd build-gcc-7
-          conan install ..
+          conan install .. --build=missing
           cmake ..
           make 2>&1 |tee make.out
         '''
@@ -41,7 +41,7 @@ pipeline {
         sh '''
           mkdir -p build-clang-4.0
           cd build-clang-4.0
-          conan install ..
+          conan install .. --build=missing
           cmake ..
           make 2>&1 |tee make.out
         '''
@@ -123,4 +123,3 @@ pipeline {
     }
   }
 }
-

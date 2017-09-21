@@ -1,5 +1,5 @@
 [requires]
-Boost/1.64.0@conan/stable
+Boost/1.60.0@lasote/stable
 gtest/1.8.0@lasote/stable
 
 [generators]
