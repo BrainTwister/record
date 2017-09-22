@@ -1,4 +1,1 @@
-/build_*
-/compile_*
-.project
-.cproject
+build*

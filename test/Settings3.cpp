@@ -18,24 +18,24 @@
 
 BRAINTWISTER_SETTINGS(A, \
     ((int, i, 0)) \
-	((double, d, 0.0)) \
+    ((double, d, 0.0)) \
 )
 
 BRAINTWISTER_SETTINGS(B, \
-	((int, i, 0)) \
-	((A, a, A())) \
+    ((int, i, 0)) \
+    ((A, a, A())) \
 )
 
 BRAINTWISTER_SETTINGS(C, \
-	((std::vector<A>, v, std::vector<A>())) \
+    ((std::vector<A>, v, std::vector<A>())) \
 )
 
 TEST(Settings3Test, B_default)
 {
-	B b;
+    B b;
 
-	EXPECT_EQ(0, b.i);
-	EXPECT_EQ(A(), b.a);
+    EXPECT_EQ(0, b.i);
+    EXPECT_EQ(A(), b.a);
 }
 
 TEST(Settings3Test, B_construct_by_json)
@@ -45,13 +45,13 @@ TEST(Settings3Test, B_construct_by_json)
     read_json(ss, pt);
     B b(pt);
 
-	EXPECT_EQ(42, b.i);
-	EXPECT_EQ((A(33, 3.8)), b.a);
+    EXPECT_EQ(42, b.i);
+    EXPECT_EQ((A(33, 3.8)), b.a);
 }
 
 TEST(Settings3Test, C_default)
 {
-	C c;
+    C c;
 
-	EXPECT_EQ(std::vector<A>(), c.v);
+    EXPECT_EQ(std::vector<A>(), c.v);
 }

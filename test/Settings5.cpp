@@ -15,43 +15,43 @@
 
 // Test polymorphism
 BRAINTWISTER_SETTINGS_BASE(SettingsBase, \
-	((std::string, s1, "base")), \
+    ((std::string, s1, "base")), \
 )
 
 BRAINTWISTER_SETTINGS_DERIVED(SettingsDerived1, SettingsBase, \
-	((int, i, 4)) \
-	((std::string, s2, "foo")), \
+    ((int, i, 4)) \
+    ((std::string, s2, "foo")), \
 )
 
 BRAINTWISTER_SETTINGS_DERIVED(SettingsDerived2, SettingsBase, \
-	((double, d, 2.3)) \
-	((std::string, s3, "bar")), \
+    ((double, d, 2.3)) \
+    ((std::string, s3, "bar")), \
 )
 
 BRAINTWISTER_SETTINGS_REGISTER(SettingsBase, \
-	(SettingsDerived1) \
-	(SettingsDerived2) \
+    (SettingsDerived1) \
+    (SettingsDerived2) \
 )
 
 BRAINTWISTER_SETTINGS(Settings5, \
-	((std::shared_ptr<SettingsBase>, p1, std::shared_ptr<SettingsBase>())) \
-	((std::shared_ptr<SettingsBase>, p2, std::shared_ptr<SettingsDerived1>())) \
+    ((std::shared_ptr<SettingsBase>, p1, std::shared_ptr<SettingsBase>())) \
+    ((std::shared_ptr<SettingsBase>, p2, std::shared_ptr<SettingsDerived1>())) \
 )
 
 TEST(Settings5Test, default)
 {
-	Settings5 settings;
+    Settings5 settings;
 
-	EXPECT_EQ(std::shared_ptr<SettingsBase>(), settings.p1);
-	EXPECT_EQ(std::shared_ptr<SettingsDerived1>(), settings.p2);
+    EXPECT_EQ(std::shared_ptr<SettingsBase>(), settings.p1);
+    EXPECT_EQ(std::shared_ptr<SettingsDerived1>(), settings.p2);
 }
 
 TEST(Settings5Test, parameter_constructor)
 {
-	std::shared_ptr<SettingsBase> p1{new SettingsDerived1{4}};
-	Settings5 settings(p1);
+    std::shared_ptr<SettingsBase> p1{new SettingsDerived1{4}};
+    Settings5 settings(p1);
 
-	EXPECT_EQ(4, std::dynamic_pointer_cast<SettingsDerived1>(settings.p1)->i);
+    EXPECT_EQ(4, std::dynamic_pointer_cast<SettingsDerived1>(settings.p1)->i);
 }
 
 TEST(Settings5Test, construct_by_json)
@@ -61,7 +61,7 @@ TEST(Settings5Test, construct_by_json)
     read_json(ss, pt);
     Settings5 settings(pt);
 
-	EXPECT_EQ(42, std::dynamic_pointer_cast<SettingsDerived1>(settings.p1)->i);
+    EXPECT_EQ(42, std::dynamic_pointer_cast<SettingsDerived1>(settings.p1)->i);
 }
 
 TEST(Settings5Test, construct_by_json_2)
@@ -71,6 +71,6 @@ TEST(Settings5Test, construct_by_json_2)
     read_json(ss, pt);
     Settings5 settings(pt);
 
-	EXPECT_EQ(42, std::dynamic_pointer_cast<SettingsDerived1>(settings.p1)->i);
-	EXPECT_EQ(3.9, std::dynamic_pointer_cast<SettingsDerived2>(settings.p2)->d);
+    EXPECT_EQ(42, std::dynamic_pointer_cast<SettingsDerived1>(settings.p1)->i);
+    EXPECT_EQ(3.9, std::dynamic_pointer_cast<SettingsDerived2>(settings.p2)->d);
 }

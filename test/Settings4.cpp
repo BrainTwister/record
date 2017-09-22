@@ -17,22 +17,22 @@
 // Test pointer
 
 BRAINTWISTER_SETTINGS(Settings4, \
-	((std::shared_ptr<int>, ptr_i, std::shared_ptr<int>())) \
+    ((std::shared_ptr<int>, ptr_i, std::shared_ptr<int>())) \
 )
 
 TEST(Settings4Test, default)
 {
-	Settings4 settings;
+    Settings4 settings;
 
-	EXPECT_EQ(std::shared_ptr<int>(), settings.ptr_i);
+    EXPECT_EQ(std::shared_ptr<int>(), settings.ptr_i);
 }
 
 TEST(Settings4Test, parameter_constructor)
 {
-	std::shared_ptr<int> ptr_i{new int{4}};
-	Settings4 settings(ptr_i);
+    std::shared_ptr<int> ptr_i{new int{4}};
+    Settings4 settings(ptr_i);
 
-	EXPECT_EQ(4, *settings.ptr_i);
+    EXPECT_EQ(4, *settings.ptr_i);
 }
 
 TEST(Settings4Test, construct_by_json)
@@ -42,5 +42,5 @@ TEST(Settings4Test, construct_by_json)
     read_json(ss, pt);
     Settings4 settings(pt);
 
-	EXPECT_EQ(4, *settings.ptr_i);
+    EXPECT_EQ(4, *settings.ptr_i);
 }

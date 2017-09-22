@@ -67,14 +67,14 @@ template <class T, class Enable = void>
 struct GenericLoader
 {
     T operator () (boost::property_tree::ptree const& pt, std::string const& key, T def) const
-	{
-    	return pt.get<T>(key, def);
-	}
+    {
+        return pt.get<T>(key, def);
+    }
 
     T operator () (boost::property_tree::ptree const& pt) const
-	{
-    	return pt.get_value<T>();
-	}
+    {
+        return pt.get_value<T>();
+    }
 };
 
 /// Specialization for nested settings
@@ -82,67 +82,67 @@ template <class T>
 struct GenericLoader<T, typename std::enable_if<is_setting<T>::value>::type>
 {
     T operator () (boost::property_tree::ptree const& pt, std::string const& key, T def) const
-	{
-		if (pt.count(key) == 0) return def;
+    {
+        if (pt.count(key) == 0) return def;
         return T(pt.get_child(key));
-	}
+    }
 
     T operator () (boost::property_tree::ptree const& pt) const
-	{
+    {
         return T(pt);
-	}
+    }
 };
 
 template <class T>
 struct GenericLoader<std::vector<T>>
 {
-	std::vector<T> operator () (boost::property_tree::ptree const& pt, std::string const& key, std::vector<T> def) const
-	{
-		if (pt.count(key) == 0) return def;
-		std::vector<T> r;
-		for (auto const& item : pt.get_child(key)) r.push_back(GenericLoader<T>()(item.second));
-		return r;
-	}
+    std::vector<T> operator () (boost::property_tree::ptree const& pt, std::string const& key, std::vector<T> def) const
+    {
+        if (pt.count(key) == 0) return def;
+        std::vector<T> r;
+        for (auto const& item : pt.get_child(key)) r.push_back(GenericLoader<T>()(item.second));
+        return r;
+    }
 };
 
 template <class T>
 struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<!is_base_setting<T>::value>::type>
 {
-	std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt, std::string const& key, std::shared_ptr<T> def) const
-	{
-		if (pt.count(key) == 0) return def;
-		else if (pt.count(key) > 1) throw std::runtime_error("More than one key found for " + key + ".");
+    std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt, std::string const& key, std::shared_ptr<T> def) const
+    {
+        if (pt.count(key) == 0) return def;
+        else if (pt.count(key) > 1) throw std::runtime_error("More than one key found for " + key + ".");
 
-		return std::shared_ptr<T>(new T(pt.get<T>(key)));
-	}
+        return std::shared_ptr<T>(new T(pt.get<T>(key)));
+    }
 
-	std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt) const
-	{
-		if (pt.size() != 1) throw std::runtime_error("More or less than one child for implicit tree node.");
+    std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt) const
+    {
+        if (pt.size() != 1) throw std::runtime_error("More or less than one child for implicit tree node.");
 
-		return std::shared_ptr<T>(new T(pt.get_value<T>()));
-	}
+        return std::shared_ptr<T>(new T(pt.get_value<T>()));
+    }
 };
 
 template <class T>
 struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting<T>::value>::type>
 {
-	std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt, std::string const& key, std::shared_ptr<T> def) const
-	{
-		if (pt.count(key) == 0) return def;
-		else if (pt.count(key) > 1) throw std::runtime_error("More than one key found for " + key + ".");
+    std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt, std::string const& key, std::shared_ptr<T> def) const
+    {
+        if (pt.count(key) == 0) return def;
+        else if (pt.count(key) > 1) throw std::runtime_error("More than one key found for " + key + ".");
 
-		boost::property_tree::ptree child = pt.get_child(key);
-		if (child.size() != 1) throw std::runtime_error("More or less than one child found for pointer (key = " + key + ").");
+        boost::property_tree::ptree child = pt.get_child(key);
+        if (child.size() != 1) throw std::runtime_error("More or less than one child found for pointer (key = " + key + ").");
         return PolymorphicLoader<T>()(child);
-	}
+    }
 
-	std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt) const
-	{
-		if (pt.size() != 1) throw std::runtime_error("More or less than one child for implicit tree node.");
+    std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt) const
+    {
+        if (pt.size() != 1) throw std::runtime_error("More or less than one child for implicit tree node.");
 
         return PolymorphicLoader<T>()(pt);
-	}
+    }
 };
 
 } // namespace SettingsDetails
@@ -165,7 +165,7 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
 // List of arguments of parameter constructor
 #define MACRO_SINGLE_CONSTRUCTOR_ARGUMENT(r,size,i,elem) \
     BOOST_PP_TUPLE_ELEM(3,0,elem) BOOST_PP_TUPLE_ELEM(3,1,elem) = BOOST_PP_TUPLE_ELEM(3,2,elem) \
-	BOOST_PP_COMMA_IF(BOOST_PP_SUB(BOOST_PP_SUB(size,i),1))
+    BOOST_PP_COMMA_IF(BOOST_PP_SUB(BOOST_PP_SUB(size,i),1))
 
 #define PRINT_CONSTRUCTOR_ARGUMENTS(SEQ) \
     BOOST_PP_SEQ_FOR_EACH_I(MACRO_SINGLE_CONSTRUCTOR_ARGUMENT,BOOST_PP_SEQ_SIZE(SEQ),SEQ)
@@ -195,7 +195,7 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
 #define MACRO_SINGLE_MEMBER_LOAD(r, size, i, elem) \
     BOOST_PP_TUPLE_ELEM(3,1,elem)( ::BrainTwister::SettingsDetails::GenericLoader<BOOST_PP_TUPLE_ELEM(3,0,elem)>()(tree, \
     BOOST_PP_STRINGIZE(BOOST_PP_TUPLE_ELEM(3,1,elem)), BOOST_PP_TUPLE_ELEM(3,2,elem))) \
-	BOOST_PP_COMMA_IF(BOOST_PP_SUB(BOOST_PP_SUB(size,i),1))
+    BOOST_PP_COMMA_IF(BOOST_PP_SUB(BOOST_PP_SUB(size,i),1))
 
 #define PRINT_CLASS_MEMBERS_LOAD(SEQ) \
     BOOST_PP_SEQ_FOR_EACH_I(MACRO_SINGLE_MEMBER_LOAD, BOOST_PP_SEQ_SIZE(SEQ), SEQ)
@@ -211,7 +211,7 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
 #define BRAINTWISTER_SETTINGS(Name, Members) \
     struct Name \
     { \
-	    typedef bool is_setting; \
+        typedef bool is_setting; \
 \
         Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) noexcept \
          : PRINT_INITIALIZE_ARGUMENTS(Members) \
@@ -225,16 +225,16 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
          : PRINT_CLASS_MEMBERS_LOAD(Members) \
         {} \
 \
-	    virtual ~Name() {}; \
+        virtual ~Name() {}; \
 \
         virtual bool operator == (Name const& other) const \
         { \
-        	return PRINT_COMPARE_ARGUMENTS(Members); \
+            return PRINT_COMPARE_ARGUMENTS(Members); \
         } \
 \
         virtual bool operator != (Name const& other) const \
         { \
-        	return !operator == (other); \
+            return !operator == (other); \
         } \
 \
         PRINT_CLASS_MEMBERS(Members) \
@@ -279,16 +279,16 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
          : PRINT_CLASS_MEMBERS_LOAD(Members) \
         {} \
 \
-	    virtual ~Name() {}; \
+        virtual ~Name() {}; \
 \
         virtual bool operator == (Name const& other) const \
         { \
-        	return PRINT_COMPARE_ARGUMENTS(Members); \
+            return PRINT_COMPARE_ARGUMENTS(Members); \
         } \
 \
         virtual bool operator != (Name const& other) const \
         { \
-        	return !operator == (other); \
+            return !operator == (other); \
         } \
 \
         PRINT_CLASS_MEMBERS(Members) \
@@ -319,26 +319,26 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
 // Base class definition with no members
 // Members must be handled specially, because they can not be empty.
 #define BRAINTWISTER_SETTINGS_BASE_NO_MEMBERS(Name, Supplements) \
-	struct Name \
-	{ \
-		typedef bool is_setting; \
-		typedef bool is_base_setting; \
+    struct Name \
+    { \
+        typedef bool is_setting; \
+        typedef bool is_base_setting; \
 \
-		virtual ~Name() {}; \
+        virtual ~Name() {}; \
 \
-		virtual bool operator == (Name const& other) const \
-		{ \
-			return true; \
-		} \
+        virtual bool operator == (Name const& other) const \
+        { \
+            return true; \
+        } \
 \
-		virtual bool operator != (Name const& other) const \
-		{ \
-			return false; \
-		} \
+        virtual bool operator != (Name const& other) const \
+        { \
+            return false; \
+        } \
 \
-		Supplements \
+        Supplements \
 \
-	};
+    };
 // end macro BRAINTWISTER_SETTINGS_BASE
 
 // Derived class definition
@@ -363,19 +363,19 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
 \
         virtual bool operator == (Base const& other) const \
         { \
-        	if (!Base::operator == (other)) return false; \
-        	return true; \
+            if (!Base::operator == (other)) return false; \
+            return true; \
             /** return PRINT_COMPARE_ARGUMENTS(Members); **/ \
         } \
 \
         virtual bool operator != (Base const& other) const \
         { \
-        	return !operator == (other); \
+            return !operator == (other); \
         } \
 \
         PRINT_CLASS_MEMBERS(Members) \
 \
-		Supplements \
+        Supplements \
 \
     }; \
 
@@ -391,7 +391,7 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
         template <class Archive> \
         void serialize(Archive & ar, const unsigned int version) \
         { \
-        	boost::serialization::base_object<Base>(*this); \
+            boost::serialization::base_object<Base>(*this); \
             PRINT_CLASS_MEMBERS_SERIALIZATION(Members) \
         } \
     }; \
@@ -409,17 +409,17 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
 // end macro MACRO_SINGLE_CASE_OF_DERIVED_CLASSES
 
 #define PRINT_CASE_LIST_OF_DERIVED_CLASSES(Base, DerivedList) \
-	BOOST_PP_SEQ_FOR_EACH(MACRO_SINGLE_CASE_OF_DERIVED_CLASSES, Base, DerivedList)
+    BOOST_PP_SEQ_FOR_EACH(MACRO_SINGLE_CASE_OF_DERIVED_CLASSES, Base, DerivedList)
 // end macro PRINT_CASE_LIST_OF_DERIVED_CLASSES
 
 // Register for polymorphic classes
 #define BRAINTWISTER_SETTINGS_REGISTER(Base, DerivedList) \
-	namespace BrainTwister { \
+    namespace BrainTwister { \
     namespace SettingsDetails { \
     template <> \
     std::shared_ptr<Base> PolymorphicLoader<Base>::operator()(boost::property_tree::ptree const& pt) const \
     { \
-	    PRINT_CASE_LIST_OF_DERIVED_CLASSES(Base, DerivedList) \
+        PRINT_CASE_LIST_OF_DERIVED_CLASSES(Base, DerivedList) \
         throw std::runtime_error("Derived class " + pt.front().first + " not registered for " + BOOST_PP_STRINGIZE(Base) + "."); \
         return std::shared_ptr<Base>(); \
     }}}
