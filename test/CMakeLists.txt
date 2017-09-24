@@ -19,7 +19,6 @@ add_executable(
 target_link_libraries(
   ${TestName}
   ${CONAN_LIBS}
-  -pthread
 )
 
 add_test(
