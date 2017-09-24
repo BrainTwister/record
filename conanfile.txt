@@ -4,3 +4,6 @@ gtest/1.8.0@lasote/stable
 
 [generators]
 cmake
+
+[options]
+Boost:header_only=True
