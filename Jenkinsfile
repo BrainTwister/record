@@ -14,7 +14,7 @@ pipeline {
           }
           steps {
             sh '''
-              rm -r build-gcc-5
+              rm -fr build-gcc-5
               mkdir -p build-gcc-5
               cd build-gcc-5
               conan install .. --build=missing -s compiler.libcxx=libstdc++11
@@ -42,7 +42,7 @@ pipeline {
           }
           steps {
             sh '''
-              rm -r build-clang-4.0
+              rm -fr build-clang-4.0
               mkdir -p build-clang-4.0
               cd build-clang-4.0
               conan install .. --build=missing -s compiler.libcxx=libstdc++11
