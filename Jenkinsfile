@@ -125,7 +125,6 @@ pipeline {
     }
   }
   post {
-    buildDiscarder(logRotator(numToKeepStr:'10'))
     success {
       mail to: 'bernd.doser@braintwister.eu', subject: "SUCCESS: ${currentBuild.fullDisplayName}", body: "Success: ${env.BUILD_URL}"
     }
