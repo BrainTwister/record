@@ -5,7 +5,7 @@ pipeline {
     label 'docker'
   }
   environment {
-    MYWORKSPACE = ${env.WORKSPACE}
+    MYWORKSPACE = "${env.WORKSPACE}"
   }
   stages {
     stage('Prepare') {
