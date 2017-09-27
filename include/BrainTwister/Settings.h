@@ -352,7 +352,7 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
         {} \
 \
         Name(Name const& other) noexcept \
-         : PRINT_COPY_ARGUMENTS(Members) \
+         : Base(other), PRINT_COPY_ARGUMENTS(Members) \
         {} \
 \
         Name(boost::property_tree::ptree const& tree) \
