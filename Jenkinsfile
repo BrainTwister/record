@@ -16,7 +16,8 @@ pipeline {
           }
           steps {
             sh '''
-              export CONAN_USER_HOME=$PWD
+              mkdir -p conan-gcc-5
+              export CONAN_USER_HOME=$PWD/conan-gcc-5
               rm -fr build-gcc-5
               mkdir -p build-gcc-5
               cd build-gcc-5
@@ -45,7 +46,8 @@ pipeline {
           }
           steps {
             sh '''
-              export CONAN_USER_HOME=$PWD
+              mkdir -p conan-clang-4.0
+              export CONAN_USER_HOME=$PWD/conan-clang-4.0
               rm -fr build-clang-4.0
               mkdir -p build-clang-4.0
               cd build-clang-4.0
