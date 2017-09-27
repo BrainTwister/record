@@ -4,6 +4,7 @@ pipeline {
   agent {
     label 'docker'
   }
+  stages {
     stage('Build') {
       parallel {
         stage('gcc-5') {
