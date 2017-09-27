@@ -4,10 +4,14 @@ pipeline {
   agent {
     label 'docker'
   }
+  environment {
+    MYWORKSPACE = "${env.WORKSPACE}"
+  }
   stages {
     stage('Prepare') {
       steps {
         echo "WORKSPACE ${env.WORKSPACE}"
+        echo "MYWORKSPACE ${MYWORKSPACE}"
         echo "BUILD_URL ${env.BUILD_URL}"
       }
     }
@@ -18,7 +22,7 @@ pipeline {
             docker {
               reuseNode true
               image 'bernddoser/docker-devel-cpp:ubuntu-16.04-gcc-5-conan-0.26.1'
-              args "--env CONAN_USER_HOME=${env.WORKSPACE}"
+              args "--env CONAN_USER_HOME=${MYWORKSPACE}"
             }
           }
           steps {
