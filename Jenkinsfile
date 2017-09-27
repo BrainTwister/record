@@ -22,7 +22,7 @@ pipeline {
             docker {
               reuseNode true
               image 'bernddoser/docker-devel-cpp:ubuntu-16.04-gcc-5-conan-0.26.1'
-              args "--env CONAN_USER_HOME=${MYWORKSPACE}"
+              args "--env CONAN_USER_HOME=${env.WORKSPACE}"
             }
           }
           steps {
