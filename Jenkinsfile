@@ -1,7 +1,9 @@
 #!groovy
 
 pipeline {
-  agent none
+  agent {
+    label 'docker'
+  }
   stages {
     stage('Prepare') {
       steps {
