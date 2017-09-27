@@ -3,6 +3,12 @@
 pipeline {
   agent none
   stages {
+    stage('Prepare') {
+      steps {
+        echo "WORKSPACE ${env.WORKSPACE}"
+        echo "BUILD_URL ${env.BUILD_URL}"
+      }
+    }
     stage('Build') {
       parallel {
         stage('gcc-5') {
@@ -10,7 +16,7 @@ pipeline {
             docker {
               reuseNode true
               image 'bernddoser/docker-devel-cpp:ubuntu-16.04-gcc-5-conan-0.26.1'
-              args "-e CONAN_USER_HOME=${env.WORKSPACE}"
+              args "--env CONAN_USER_HOME=${env.WORKSPACE}"
             }
           }
           steps {
@@ -39,7 +45,7 @@ pipeline {
             docker {
               reuseNode true
               image 'bernddoser/docker-devel-cpp:ubuntu-16.04-clang-4.0-conan-0.26.1'
-              args "-e CONAN_USER_HOME=${env.WORKSPACE}"
+              args "--env CONAN_USER_HOME=${env.WORKSPACE}"
             }
           }
           steps {
@@ -72,7 +78,7 @@ pipeline {
             docker {
               reuseNode true
               image 'bernddoser/docker-devel-cpp:ubuntu-16.04-gcc-5-conan-0.26.1'
-              args "-e CONAN_USER_HOME=${env.WORKSPACE}"
+              args "--env CONAN_USER_HOME=${env.WORKSPACE}"
             }
           }
           steps {
@@ -93,7 +99,7 @@ pipeline {
             docker {
               reuseNode true
               image 'bernddoser/docker-devel-cpp:ubuntu-16.04-clang-4.0-conan-0.26.1'
-              args "-e CONAN_USER_HOME=${env.WORKSPACE}"
+              args "--env CONAN_USER_HOME=${env.WORKSPACE}"
             }
           }
           steps {
@@ -116,7 +122,7 @@ pipeline {
         docker {
           reuseNode true
           image 'bernddoser/docker-devel-cpp:ubuntu-16.04-gcc-5-conan-0.26.1'
-          args "-e CONAN_USER_HOME=${env.WORKSPACE}"
+          args "--env CONAN_USER_HOME=${env.WORKSPACE}"
         }
       }
       steps {
