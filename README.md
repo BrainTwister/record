@@ -5,7 +5,7 @@ Functional requirements
 -----------------------
 
 - All data members are defined with static types (member_type)
-- All data members are accessable with the member_name
+- All data members are directly accessible using the member_name
 - All data members have a mandatory default value (member_default_value)
 - Arrays will be supported
 - Nested structures will be supported
