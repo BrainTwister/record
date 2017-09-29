@@ -1,12 +1,16 @@
 C++ settings
 ============
 
-- Type safe members
-- Easy access over member name
-- Mandatory default values
-- Support lists and nested structures
-- Support polymorphic classes
-- Serialization via markup language (e.g. json, xml, yml)
+Functional requirements
+-----------------------
+
+- All data members are defined with static types (member_type)
+- All data members are accessable with the member_name
+- All data members have a mandatory default value (member_default_value)
+- Arrays will be supported
+- Nested structures will be supported
+- Polymorphic structures will be supported
+- Data structures can be serialization via markup language (e.g. json, xml, yml)
 
 Define settings class
 ---------------------
