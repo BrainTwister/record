@@ -15,17 +15,7 @@ pipeline {
             }
           }
           steps {
-            sh '''
-              mkdir -p conan-gcc-5
-              export CONAN_USER_HOME=$PWD/conan-gcc-5
-              conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
-              rm -fr build-gcc-5
-              mkdir -p build-gcc-5
-              cd build-gcc-5
-              conan install .. --build=missing -s compiler.libcxx=libstdc++11
-              cmake ..
-              make 2>&1 |tee make.out
-            '''
+            sh './build.sh gcc-5'
           }
           post {
             always {
@@ -46,17 +36,7 @@ pipeline {
             }
           }
           steps {
-            sh '''
-              mkdir -p conan-clang-4.0
-              export CONAN_USER_HOME=$PWD/conan-clang-4.0
-              conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
-              rm -fr build-clang-4.0
-              mkdir -p build-clang-4.0
-              cd build-clang-4.0
-              conan install .. --build=missing -s compiler.libcxx=libstdc++11
-              cmake ..
-              make 2>&1 |tee make.out
-            '''
+            sh './build.sh clang-4.0'
           }
           post {
             always {
