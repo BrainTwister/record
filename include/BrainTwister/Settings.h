@@ -1,5 +1,4 @@
-#ifndef BRAINTWISTER_SETTINGS_H_
-#define BRAINTWISTER_SETTINGS_H_
+#pragma once
 
 #include <boost/preprocessor/arithmetic/sub.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -424,5 +423,3 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
         return std::shared_ptr<Base>(); \
     }}}
 // end macro BRAINTWISTER_SETTINGS_REGISTER
-
-#endif // BRAINTWISTER_SETTINGS_H_
