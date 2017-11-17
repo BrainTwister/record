@@ -5,11 +5,12 @@
 #include <boost/property_tree/ptree.hpp>
 #include <string>
 
-// Class definition
-#define BRAINTWISTER_SETTINGS(Name, Members) \
+// Base class definition
+#define BRAINTWISTER_SETTINGS_BASE(Name, Members, Supplements) \
     struct Name \
     { \
         typedef bool is_setting; \
+        typedef bool is_base_setting; \
 \
         Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) noexcept \
          : PRINT_INITIALIZE_ARGUMENTS(Members) \
@@ -36,5 +37,33 @@
         } \
 \
         PRINT_CLASS_MEMBERS(Members) \
+\
+        Supplements \
+\
     };
-// end macro BRAINTWISTER_SETTINGS
+// end macro BRAINTWISTER_SETTINGS_BASE
+
+// Base class definition with no members
+// Members must be handled specially, because they can not be empty.
+#define BRAINTWISTER_SETTINGS_BASE_NO_MEMBERS(Name, Supplements) \
+    struct Name \
+    { \
+        typedef bool is_setting; \
+        typedef bool is_base_setting; \
+\
+        virtual ~Name() {}; \
+\
+        virtual bool operator == (Name const& other) const \
+        { \
+            return true; \
+        } \
+\
+        virtual bool operator != (Name const& other) const \
+        { \
+            return false; \
+        } \
+\
+        Supplements \
+\
+    };
+// end macro BRAINTWISTER_SETTINGS_BASE

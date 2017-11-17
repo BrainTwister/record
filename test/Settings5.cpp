@@ -7,6 +7,9 @@
 // TERMS OF THE COPYRIGHT NOTICE
 
 #include "BrainTwister/Settings.h"
+#include "BrainTwister/SettingsBase.h"
+#include "BrainTwister/SettingsDerived.h"
+#include "BrainTwister/SettingsRegister.h"
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/property_tree/json_parser.hpp>

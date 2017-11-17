@@ -5,9 +5,9 @@
 #include <boost/property_tree/ptree.hpp>
 #include <string>
 
-// Class definition
-#define BRAINTWISTER_SETTINGS(Name, Members) \
-    struct Name \
+// Derived class definition
+#define BRAINTWISTER_SETTINGS_DERIVED(Name, Base, Members, Supplements) \
+    struct Name : Base \
     { \
         typedef bool is_setting; \
 \
@@ -16,7 +16,7 @@
         {} \
 \
         Name(Name const& other) noexcept \
-         : PRINT_COPY_ARGUMENTS(Members) \
+         : Base(other), PRINT_COPY_ARGUMENTS(Members) \
         {} \
 \
         Name(boost::property_tree::ptree const& tree) \
@@ -25,16 +25,21 @@
 \
         virtual ~Name() {}; \
 \
-        virtual bool operator == (Name const& other) const \
+        virtual bool operator == (Base const& other) const \
         { \
-            return PRINT_COMPARE_ARGUMENTS(Members); \
+            if (!Base::operator == (other)) return false; \
+            return true; \
+            /** return PRINT_COMPARE_ARGUMENTS(Members); **/ \
         } \
 \
-        virtual bool operator != (Name const& other) const \
+        virtual bool operator != (Base const& other) const \
         { \
             return !operator == (other); \
         } \
 \
         PRINT_CLASS_MEMBERS(Members) \
+\
+        Supplements \
+\
     };
-// end macro BRAINTWISTER_SETTINGS
+// end macro BRAINTWISTER_SETTINGS_DERIVED

@@ -61,7 +61,7 @@ TEST(Settings1Test, ptree_construction)
 
 TEST(Settings1Test, construct_by_json)
 {
-    std::stringstream ss("{\"i\": 42, \"d\": 3.8, \"s\": \"bar\"}");
+	std::stringstream ss("{\"i\": 42, \"d\": 3.8, \"s\": \"bar\"}");
     boost::property_tree::ptree pt;
     read_json(ss, pt);
     Settings settings(pt);
