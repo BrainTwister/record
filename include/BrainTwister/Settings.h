@@ -3,7 +3,6 @@
 #include "Submacros.h"
 #include "SettingsDetails.h"
 #include <boost/property_tree/ptree.hpp>
-#include <string>
 
 // Class definition
 #define BRAINTWISTER_SETTINGS(Name, Members) \
@@ -21,6 +20,11 @@
 \
         Name(boost::property_tree::ptree const& tree) \
          : PRINT_CLASS_MEMBERS_LOAD(Members) \
+        {} \
+\
+        template <class MarkupHandler> \
+        Name(MarkupHandler const& markup_handler) \
+		 : Name(markup_handler.get_ptree()) \
         {} \
 \
         virtual ~Name() {}; \

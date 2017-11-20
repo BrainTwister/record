@@ -6,52 +6,55 @@
 // ANY USE OF THIS CODE CONSTITUTES ACCEPTANCE OF THE
 // TERMS OF THE COPYRIGHT NOTICE
 
+#include "BrainTwister/JSON.h"
 #include "BrainTwister/Settings.h"
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/property_tree/json_parser.hpp>
+#include "BrainTwister/XML.h"
 #include "gtest/gtest.h"
-#include <iostream>
 #include <vector>
 
 // Test nested structures
 
-BRAINTWISTER_SETTINGS(A, \
-    ((int, i, 0)) \
-    ((double, d, 0.0)) \
+BRAINTWISTER_SETTINGS(Settings1, \
+    ((int, i, 1)) \
+    ((double, d, 2.7)) \
 )
 
-BRAINTWISTER_SETTINGS(B, \
-    ((int, i, 0)) \
-    ((A, a, A())) \
+BRAINTWISTER_SETTINGS(Settings2, \
+    ((int, i, 5)) \
+    ((Settings1, settings1, Settings1())) \
 )
 
-BRAINTWISTER_SETTINGS(C, \
-    ((std::vector<A>, v, std::vector<A>())) \
-)
-
-TEST(Settings3Test, B_default)
+TEST(Settings3Test, default1)
 {
-    B b;
+	Settings1 settings1;
 
-    EXPECT_EQ(0, b.i);
-    EXPECT_EQ(A(), b.a);
+    EXPECT_EQ(1, settings1.i);
+    EXPECT_EQ(2.7, settings1.d);
 }
 
-TEST(Settings3Test, B_construct_by_json)
+TEST(Settings3Test, default2)
 {
-    std::stringstream ss("{\"i\": 42, \"a\": {\"i\": 33, \"d\": 3.8}}");
-    boost::property_tree::ptree pt;
-    read_json(ss, pt);
-    B b(pt);
+	Settings2 settings2;
 
-    EXPECT_EQ(42, b.i);
-    EXPECT_EQ((A(33, 3.8)), b.a);
+    EXPECT_EQ(5, settings2.i);
+    EXPECT_EQ(1, settings2.settings1.i);
+    EXPECT_EQ(2.7, settings2.settings1.d);
 }
 
-TEST(Settings3Test, C_default)
+TEST(Settings3Test, json)
 {
-    C c;
+	Settings2 settings2{JSON{"{\"i\": 42, \"settings1\": {\"i\": 33, \"d\": 3.8}}"}};
 
-    EXPECT_EQ(std::vector<A>(), c.v);
+    EXPECT_EQ(42, settings2.i);
+    EXPECT_EQ(33, settings2.settings1.i);
+    EXPECT_EQ(3.8, settings2.settings1.d);
+}
+
+TEST(Settings3Test, xml)
+{
+	Settings2 settings2{XML{"<i>42</i><settings1><i>33</i><d>3.8</d></settings1>"}};
+
+    EXPECT_EQ(42, settings2.i);
+    EXPECT_EQ(33, settings2.settings1.i);
+    EXPECT_EQ(3.8, settings2.settings1.d);
 }

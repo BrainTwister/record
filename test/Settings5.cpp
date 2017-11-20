@@ -6,29 +6,33 @@
 // ANY USE OF THIS CODE CONSTITUTES ACCEPTANCE OF THE
 // TERMS OF THE COPYRIGHT NOTICE
 
+#include "BrainTwister/JSON.h"
 #include "BrainTwister/Settings.h"
 #include "BrainTwister/SettingsBase.h"
 #include "BrainTwister/SettingsDerived.h"
 #include "BrainTwister/SettingsRegister.h"
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/property_tree/json_parser.hpp>
+#include "BrainTwister/XML.h"
 #include "gtest/gtest.h"
+#include <memory>
 #include <string>
 
 // Test polymorphism
+
 BRAINTWISTER_SETTINGS_BASE(SettingsBase, \
     ((std::string, s1, "base")), \
+	virtual double operator ()() const = 0; \
 )
 
 BRAINTWISTER_SETTINGS_DERIVED(SettingsDerived1, SettingsBase, \
     ((int, i, 4)) \
     ((std::string, s2, "foo")), \
+	virtual double operator ()() const { return i; } \
 )
 
 BRAINTWISTER_SETTINGS_DERIVED(SettingsDerived2, SettingsBase, \
     ((double, d, 2.3)) \
     ((std::string, s3, "bar")), \
+	virtual double operator ()() const { return d; } \
 )
 
 BRAINTWISTER_SETTINGS_REGISTER(SettingsBase, \
@@ -57,23 +61,19 @@ TEST(Settings5Test, parameter_constructor)
     EXPECT_EQ(4, std::dynamic_pointer_cast<SettingsDerived1>(settings.p1)->i);
 }
 
-TEST(Settings5Test, construct_by_json)
+TEST(Settings5Test, json)
 {
-    std::stringstream ss("{\"p1\": {\"SettingsDerived1\": {\"i\": 42}}}");
-    boost::property_tree::ptree pt;
-    read_json(ss, pt);
-    Settings5 settings(pt);
+	Settings5 settings5{JSON{"{\"p1\": {\"SettingsDerived1\": {\"i\": 42}}}"}};
 
-    EXPECT_EQ(42, std::dynamic_pointer_cast<SettingsDerived1>(settings.p1)->i);
+    EXPECT_EQ(42, std::dynamic_pointer_cast<SettingsDerived1>(settings5.p1)->i);
 }
 
-TEST(Settings5Test, construct_by_json_2)
+TEST(Settings5Test, json2)
 {
-    std::stringstream ss("{\"p1\": {\"SettingsDerived1\": {\"i\": 42}}, \"p2\": {\"SettingsDerived2\": {\"d\": 3.9}}}");
-    boost::property_tree::ptree pt;
-    read_json(ss, pt);
-    Settings5 settings(pt);
+	Settings5 settings5{JSON{"{\"p1\": {\"SettingsDerived1\": {\"i\": 42}}, \"p2\": {\"SettingsDerived2\": {\"d\": 3.9}}}"}};
 
-    EXPECT_EQ(42, std::dynamic_pointer_cast<SettingsDerived1>(settings.p1)->i);
-    EXPECT_EQ(3.9, std::dynamic_pointer_cast<SettingsDerived2>(settings.p2)->d);
+    EXPECT_EQ(42, std::dynamic_pointer_cast<SettingsDerived1>(settings5.p1)->i);
+    EXPECT_EQ(3.9, std::dynamic_pointer_cast<SettingsDerived2>(settings5.p2)->d);
+
+    EXPECT_EQ(42, settings5.p1->operator()());
 }

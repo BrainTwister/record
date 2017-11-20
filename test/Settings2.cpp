@@ -6,12 +6,10 @@
 // ANY USE OF THIS CODE CONSTITUTES ACCEPTANCE OF THE
 // TERMS OF THE COPYRIGHT NOTICE
 
+#include "BrainTwister/JSON.h"
 #include "BrainTwister/Settings.h"
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/property_tree/json_parser.hpp>
+#include "BrainTwister/XML.h"
 #include "gtest/gtest.h"
-#include <iostream>
 #include <vector>
 
 // Test std::vector
@@ -41,12 +39,9 @@ TEST(Settings2Test, parameter_constructor)
     EXPECT_EQ((std::vector<int>{8, 8, 2}), settings.v1);
 }
 
-TEST(Settings2Test, construct_by_json)
+TEST(Settings2Test, json)
 {
-    std::stringstream ss("{\"v1\": [2, 3, 1], \"v2\": [{\"i\": 3, \"d\": 3.2, \"s\": \"bar\"}]}");
-    boost::property_tree::ptree pt;
-    read_json(ss, pt);
-    Settings2 settings(pt);
+	Settings2 settings{JSON{"{\"v1\": [2, 3, 1], \"v2\": [{\"i\": 3, \"d\": 3.2, \"s\": \"bar\"}]}"}};
 
     EXPECT_EQ(2, settings.v1[0]);
     EXPECT_EQ(3, settings.v1[1]);
@@ -55,4 +50,13 @@ TEST(Settings2Test, construct_by_json)
     EXPECT_EQ(3, settings.v2[0].i);
     EXPECT_EQ(3.2, settings.v2[0].d);
     EXPECT_EQ("bar", settings.v2[0].s);
+}
+
+TEST(Settings2Test, xml)
+{
+	Settings2 settings{XML{"<v1><value>2</value><value>3</value><value>1</value></v1>"}};
+
+    EXPECT_EQ(2, settings.v1[0]);
+    EXPECT_EQ(3, settings.v1[1]);
+    EXPECT_EQ(1, settings.v1[2]);
 }
