@@ -4,6 +4,7 @@
 #include <fstream>
 #include <memory>
 #include <type_traits>
+#include <vector>
 
 namespace BrainTwister {
 namespace SettingsDetails {

@@ -40,14 +40,14 @@ BRAINTWISTER_SETTINGS_REGISTER(SettingsBase, \
     (SettingsDerived2) \
 )
 
-BRAINTWISTER_SETTINGS(Settings5, \
+BRAINTWISTER_SETTINGS(Settings8, \
     ((std::shared_ptr<SettingsBase>, p1, std::shared_ptr<SettingsBase>())) \
     ((std::shared_ptr<SettingsBase>, p2, std::shared_ptr<SettingsDerived1>())) \
 )
 
 TEST(Settings5Test, default)
 {
-    Settings5 settings;
+    Settings8 settings;
 
     EXPECT_EQ(std::shared_ptr<SettingsBase>(), settings.p1);
     EXPECT_EQ(std::shared_ptr<SettingsDerived1>(), settings.p2);
@@ -56,21 +56,21 @@ TEST(Settings5Test, default)
 TEST(Settings5Test, parameter_constructor)
 {
     std::shared_ptr<SettingsBase> p1{new SettingsDerived1{4}};
-    Settings5 settings(p1);
+    Settings8 settings(p1);
 
     EXPECT_EQ(4, std::dynamic_pointer_cast<SettingsDerived1>(settings.p1)->i);
 }
 
 TEST(Settings5Test, json)
 {
-	Settings5 settings5{JSON{"{\"p1\": {\"SettingsDerived1\": {\"i\": 42}}}"}};
+	Settings8 settings5{JSON{"{\"p1\": {\"SettingsDerived1\": {\"i\": 42}}}"}};
 
     EXPECT_EQ(42, std::dynamic_pointer_cast<SettingsDerived1>(settings5.p1)->i);
 }
 
 TEST(Settings5Test, json2)
 {
-	Settings5 settings5{JSON{"{\"p1\": {\"SettingsDerived1\": {\"i\": 42}}, \"p2\": {\"SettingsDerived2\": {\"d\": 3.9}}}"}};
+	Settings8 settings5{JSON{"{\"p1\": {\"SettingsDerived1\": {\"i\": 42}}, \"p2\": {\"SettingsDerived2\": {\"d\": 3.9}}}"}};
 
     EXPECT_EQ(42, std::dynamic_pointer_cast<SettingsDerived1>(settings5.p1)->i);
     EXPECT_EQ(3.9, std::dynamic_pointer_cast<SettingsDerived2>(settings5.p2)->d);
