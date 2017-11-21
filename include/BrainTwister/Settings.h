@@ -10,11 +10,11 @@
     { \
         typedef bool is_setting; \
 \
-        Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) noexcept \
+        Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) \
          : PRINT_INITIALIZE_ARGUMENTS(Members) \
         {} \
 \
-        Name(Name const& other) noexcept \
+        Name(Name const& other) \
          : PRINT_COPY_ARGUMENTS(Members) \
         {} \
 \
@@ -27,17 +27,17 @@
 		 : Name(markup_handler.get_ptree()) \
         {} \
 \
-        virtual ~Name() {}; \
-\
-        virtual bool operator == (Name const& other) const \
+        bool operator == (Name const& other) const \
         { \
             return PRINT_COMPARE_ARGUMENTS(Members); \
         } \
 \
-        virtual bool operator != (Name const& other) const \
+        bool operator != (Name const& other) const \
         { \
             return !operator == (other); \
         } \
+\
+        PRINT_CLASS_MEMBER_SETTERS(Name, Members) \
 \
         PRINT_CLASS_MEMBERS(Members) \
     };

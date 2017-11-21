@@ -15,30 +15,44 @@
 // Test nested structures
 
 BRAINTWISTER_SETTINGS(Settings1, \
-    ((int, i, 1)) \
+    ((int, i, 3)) \
     ((double, d, 2.7)) \
 )
 
 BRAINTWISTER_SETTINGS(Settings2, \
     ((int, i, 5)) \
-    ((Settings1, settings1, Settings1())) \
+    ((Settings1, settings1, Settings1{})) \
+)
+
+BRAINTWISTER_SETTINGS(Settings3, \
+    ((int, i, 7)) \
+    ((Settings1, settings1, Settings1().set_i(125).set_d(30.7))) \
 )
 
 TEST(Settings3Test, default1)
 {
 	Settings1 settings1;
 
-    EXPECT_EQ(1, settings1.i);
+    EXPECT_EQ(3, settings1.i);
     EXPECT_EQ(2.7, settings1.d);
 }
 
-TEST(Settings3Test, default2)
-{
-	Settings2 settings2;
+//TEST(Settings3Test, default2)
+//{
+//	Settings2 settings2;
+//
+//    EXPECT_EQ(5, settings2.i);
+//    EXPECT_EQ(3, settings2.settings1.i);
+//    EXPECT_EQ(2.7, settings2.settings1.d);
+//}
 
-    EXPECT_EQ(5, settings2.i);
-    EXPECT_EQ(1, settings2.settings1.i);
-    EXPECT_EQ(2.7, settings2.settings1.d);
+TEST(Settings3Test, default3)
+{
+	Settings3 settings3;
+
+    EXPECT_EQ(7, settings3.i);
+    EXPECT_EQ(125, settings3.settings1.i);
+    EXPECT_EQ(30.7, settings3.settings1.d);
 }
 
 TEST(Settings3Test, json)

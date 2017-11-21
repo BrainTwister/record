@@ -29,7 +29,7 @@ TEST(Settings1Test, default)
     EXPECT_EQ("foo", settings.s);
 }
 
-TEST(Settings1Test, parameter_construction)
+TEST(Settings1Test, parameter)
 {
     Settings settings(42, 2.3);
 
@@ -37,7 +37,23 @@ TEST(Settings1Test, parameter_construction)
     EXPECT_EQ(2.3, settings.d);
 }
 
-TEST(Settings1Test, copy_construction)
+TEST(Settings1Test, builder)
+{
+    Settings settings = Settings().set_i(16).set_d(3.9);
+
+    EXPECT_EQ(16, settings.i);
+    EXPECT_EQ(3.9, settings.d);
+}
+
+TEST(Settings1Test, builder_static)
+{
+    static Settings settings = Settings().set_i(16).set_d(3.9);
+
+    EXPECT_EQ(16, settings.i);
+    EXPECT_EQ(3.9, settings.d);
+}
+
+TEST(Settings1Test, copy)
 {
     Settings s1(42, 2.3);
     Settings s2(s1);
@@ -46,7 +62,7 @@ TEST(Settings1Test, copy_construction)
     EXPECT_EQ(2.3, s2.d);
 }
 
-TEST(Settings1Test, ptree_construction)
+TEST(Settings1Test, ptree)
 {
     boost::property_tree::ptree pt;
     pt.put("i", "42");

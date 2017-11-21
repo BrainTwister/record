@@ -11,11 +11,11 @@
     { \
         typedef bool is_setting; \
 \
-        Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) noexcept \
+        Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) \
          : PRINT_INITIALIZE_ARGUMENTS(Members) \
         {} \
 \
-        Name(Name const& other) noexcept \
+        Name(Name const& other) \
          : Base(other), PRINT_COPY_ARGUMENTS(Members) \
         {} \
 \

@@ -9,7 +9,7 @@ include_directories(
 add_executable(
   ${TestName}
   main.cpp
-  Settings1.cpp
+  #Settings1.cpp
   Settings2.cpp
   Settings3.cpp
   Settings4.cpp

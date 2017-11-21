@@ -12,11 +12,11 @@
         typedef bool is_setting; \
         typedef bool is_base_setting; \
 \
-        Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) noexcept \
+        Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) \
          : PRINT_INITIALIZE_ARGUMENTS(Members) \
         {} \
 \
-        Name(Name const& other) noexcept \
+        Name(Name const& other) \
          : PRINT_COPY_ARGUMENTS(Members) \
         {} \
 \
