@@ -14,10 +14,6 @@
          : PRINT_INITIALIZE_ARGUMENTS(Members) \
         {} \
 \
-        Name(Name const& other) \
-         : PRINT_COPY_ARGUMENTS(Members) \
-        {} \
-\
         Name(boost::property_tree::ptree const& tree) \
          : PRINT_CLASS_MEMBERS_LOAD(Members) \
         {} \

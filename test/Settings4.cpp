@@ -26,7 +26,7 @@ TEST(Settings4Test, default)
     EXPECT_EQ(std::shared_ptr<int>(), settings.ptr_i);
 }
 
-TEST(Settings4Test, parameter_constructor)
+TEST(Settings4Test, parameter)
 {
     auto ptr_i = std::make_shared<int>(4);
     Settings4 settings4(ptr_i);

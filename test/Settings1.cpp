@@ -53,13 +53,23 @@ TEST(Settings1Test, builder_static)
     EXPECT_EQ(3.9, settings.d);
 }
 
-TEST(Settings1Test, copy)
+TEST(Settings1Test, copy_constructor)
 {
     Settings s1(42, 2.3);
     Settings s2(s1);
 
     EXPECT_EQ(42, s2.i);
     EXPECT_EQ(2.3, s2.d);
+}
+
+TEST(Settings1Test, copy_operator)
+{
+    Settings s1 = Settings().set_i(16).set_d(3.9).set_s("bar");
+    Settings s2 = s1;
+
+    EXPECT_EQ(16, s2.i);
+    EXPECT_EQ(3.9, s2.d);
+    EXPECT_EQ("bar", s2.s);
 }
 
 TEST(Settings1Test, ptree)
