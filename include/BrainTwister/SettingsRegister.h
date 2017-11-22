@@ -3,7 +3,7 @@
 #include "Submacros.h"
 #include "SettingsDetails.h"
 #include <boost/property_tree/ptree.hpp>
-#include <string>
+#include <stdexcept>
 
 // List of derived classes for switch
 #define MACRO_SINGLE_CASE_OF_DERIVED_CLASSES(r, Base, Derived) \

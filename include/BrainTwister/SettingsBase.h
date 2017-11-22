@@ -49,12 +49,12 @@
 \
         virtual ~Name() {}; \
 \
-        virtual bool operator == (Name const& other) const \
+        virtual bool operator == (Name const& /*other*/) const \
         { \
             return true; \
         } \
 \
-        virtual bool operator != (Name const& other) const \
+        virtual bool operator != (Name const& /*other*/) const \
         { \
             return false; \
         } \
