@@ -38,7 +38,7 @@ pipeline {
           agent {
             docker {
               reuseNode true
-              image 'bernddoser/docker-devel-cpp:ubuntu-16.04-cmake-3.10-clang-4.0-conan-1.0'
+              image 'bernddoser/docker-devel-cpp:ubuntu-16.04-cmake-3.10-clang-4-conan-1.0'
             }
           }
           steps {
@@ -83,7 +83,7 @@ pipeline {
           agent {
             docker {
               reuseNode true
-              image 'bernddoser/docker-devel-cpp:ubuntu-16.04-cmake-3.10-clang-4.0-conan-1.0'
+              image 'bernddoser/docker-devel-cpp:ubuntu-16.04-cmake-3.10-clang-4-conan-1.0'
             }
           }
           steps {
