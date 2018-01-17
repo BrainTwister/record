@@ -22,7 +22,7 @@ A settings class is defined by
       ... \
     )
 
-for example settigs for a database
+for example settings for a database
 
     BRAINTWISTER_SETTINGS( DatabaseSettings, \
       (( uint16_t, port, 3306 )) \
