@@ -25,7 +25,7 @@ A settings class is defined by
 for example settigs for a database
 
     BRAINTWISTER_SETTINGS( DatabaseSettings, \
-      (( unsigned int, port, 3306 )) \
+      (( uint16_t, port, 3306 )) \
       (( std::string, database, "" )) \
       (( std::string, table, "" )) \
       ... \
