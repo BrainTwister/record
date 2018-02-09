@@ -1,5 +1,22 @@
-C++ settings
-============
+BrainTwister Record
+===================
+
+A record is a linear, direct-access data structure with heterogeneous entries.
+In C++ a record is typically related to a passive data structure (PDS), which is a class or a struct with only public members.
+
+```
+struct Database
+{
+    uint16_t, port;
+    std::string database;
+    std::string host;
+} 
+```
+
+A record has statically typed fields, which are directly accessible using the dot operator.
+
+A BrainTwister Record provides some useful additional features.
+
 
 Functional requirements
 -----------------------
@@ -17,14 +34,14 @@ Define settings class
 
 A settings class is defined by
 
-    BRAINTWISTER_SETTINGS( Name, \
-      (( member_type, member_name, member_default_value )) \
+    BRAINTWISTER_RECORD( record_name, \
+      (( field_type, field_name, field_default_value )) \
       ... \
     )
 
 for example settings for a database
 
-    BRAINTWISTER_SETTINGS( DatabaseSettings, \
+    BRAINTWISTER_RECORD( Database, \
       (( uint16_t, port, 3306 )) \
       (( std::string, database, "" )) \
       (( std::string, table, "" )) \
@@ -36,7 +53,7 @@ Polymorphic settings
 
 A base class is defined by
 
-    BLASBOOSTER_SETTINGS_BASE( BaseName, \
+    BRAINTWISTER_SETTINGS_BASE( BaseName, \
 	  (( base_member_type, base_member_name, base_member_default_value )) \
 	  ..., \
 	  virtual function \
@@ -44,7 +61,7 @@ A base class is defined by
 
 A derived class is defined by
 
-    BLASBOOSTER_SETTINGS_DERIVED( DerivedName, \
+    BRAINTWISTER_SETTINGS_DERIVED( DerivedName, \
 	  (( derived_member_type, derived_member_name, derived_member_default_value )) \
 	  ..., \
 	  virtual function \
