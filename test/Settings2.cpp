@@ -10,9 +10,11 @@
 #include "BrainTwister/Settings.h"
 #include "BrainTwister/XML.h"
 #include "gtest/gtest.h"
+#include <list>
+#include <map>
 #include <vector>
 
-// Test std::vector
+// Test collections
 
 BRAINTWISTER_SETTINGS(Settings2, \
     ((int, i, 0)) \
@@ -23,6 +25,14 @@ BRAINTWISTER_SETTINGS(Settings2, \
 BRAINTWISTER_SETTINGS(Settings3, \
     ((std::vector<int>, v1, std::vector<int>())) \
     ((std::vector<Settings2>, v2, std::vector<Settings2>())) \
+)
+
+BRAINTWISTER_SETTINGS(Settings4, \
+    ((std::list<int>, list, std::list<int>())) \
+)
+
+//BRAINTWISTER_SETTINGS(Settings5, \
+    ((std::map<int, std::string>, m1, std::map<int, std::string>())) \
 )
 
 TEST(Settings2Test, default)
@@ -79,4 +89,11 @@ TEST(Settings2Test, xml)
     EXPECT_EQ(3, settings2.v2[0].i);
     EXPECT_EQ(3.2, settings2.v2[0].d);
     EXPECT_EQ("bar", settings2.v2[0].s);
+}
+
+TEST(Settings2Test, std_list)
+{
+    Settings4 s;
+
+    EXPECT_EQ(0U, s.list.size());
 }

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <memory>
 #include <type_traits>
+#include <list>
 #include <vector>
 
 namespace BrainTwister {
@@ -85,6 +86,18 @@ struct GenericLoader<std::vector<T>>
     {
         if (pt.count(key) == 0) return def;
         std::vector<T> r;
+        for (auto const& item : pt.get_child(key)) r.push_back(GenericLoader<T>()(item.second));
+        return r;
+    }
+};
+
+template <class T>
+struct GenericLoader<std::list<T>>
+{
+    std::list<T> operator () (boost::property_tree::ptree const& pt, std::string const& key, std::list<T> def) const
+    {
+        if (pt.count(key) == 0) return def;
+        std::list<T> r;
         for (auto const& item : pt.get_child(key)) r.push_back(GenericLoader<T>()(item.second));
         return r;
     }
