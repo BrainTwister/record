@@ -31,9 +31,8 @@ BRAINTWISTER_SETTINGS(Settings4, \
     ((std::list<int>, list, std::list<int>())) \
 )
 
-//BRAINTWISTER_SETTINGS(Settings5, \
-    ((std::map<int, std::string>, m1, std::map<int, std::string>())) \
-)
+// templates with more than 2 arguments std::map<int, int> will not work,
+// because of the comma in-between the brackets interpreted as multiple macro arguments.
 
 TEST(Settings2Test, default)
 {
