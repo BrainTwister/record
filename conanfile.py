@@ -11,8 +11,8 @@ class CppsettingsConan(ConanFile):
     
     settings = "os", "compiler", "build_type", "arch"
     requires = \
-        "Boost.Preprocessor/1.65.1@bincrafters/stable", \
-        "Boost.Property_Tree/1.65.1@bincrafters/stable", \
+        "boost_preprocessor/1.66.0@bincrafters/stable", \
+        "boost_property_tree/1.66.0@bincrafters/stable", \
         "gtest/1.8.0@lasote/stable"
     generators = "cmake"
     default_options = "Boost:header_only=True"
