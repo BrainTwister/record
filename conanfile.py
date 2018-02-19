@@ -10,7 +10,10 @@ class CppsettingsConan(ConanFile):
     no_copy_source = True
     
     settings = "os", "compiler", "build_type", "arch"
-    requires = "Boost/1.64.0@conan/stable", "gtest/1.8.0@lasote/stable"
+    requires = \
+        "Boost.Preprocessor/1.65.1@bincrafters/stable", \
+        "Boost.Property_Tree/1.65.1@bincrafters/stable", \
+        "gtest/1.8.0@lasote/stable"
     generators = "cmake"
     default_options = "Boost:header_only=True"
 
