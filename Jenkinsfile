@@ -17,7 +17,7 @@ pipeline {
           agent {
             docker {
               reuseNode true
-              image 'bernddoser/docker-devel-cpp:ubuntu-16.04-cmake-3.10-gcc-5-conan-1.0'
+              image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.2'
             }
           }
           steps {
@@ -38,7 +38,7 @@ pipeline {
           agent {
             docker {
               reuseNode true
-              image 'bernddoser/docker-devel-cpp:ubuntu-16.04-cmake-3.10-clang-4-conan-1.0'
+              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-4-conan-1.2'
             }
           }
           steps {
@@ -63,7 +63,7 @@ pipeline {
           agent {
             docker {
               reuseNode true
-              image 'bernddoser/docker-devel-cpp:ubuntu-16.04-cmake-3.10-gcc-5-conan-1.0'
+              image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.2'
             }
           }
           steps {
@@ -83,7 +83,7 @@ pipeline {
           agent {
             docker {
               reuseNode true
-              image 'bernddoser/docker-devel-cpp:ubuntu-16.04-cmake-3.10-clang-4-conan-1.0'
+              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-4-conan-1.2'
             }
           }
           steps {
@@ -105,7 +105,7 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image 'bernddoser/docker-devel-cpp:ubuntu-16.04-cmake-3.10-gcc-5-conan-1.0'
+          image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.2'
         }
       }
       steps {
