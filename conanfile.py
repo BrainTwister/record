@@ -13,7 +13,7 @@ class CppsettingsConan(ConanFile):
     requires = \
         "boost_preprocessor/1.66.0@bincrafters/stable", \
         "boost_property_tree/1.66.0@bincrafters/stable", \
-        "gtest/1.8.0@lasote/stable"
+        "gtest/1.8.0@bincrafters/stable"
     generators = "cmake"
     default_options = "Boost:header_only=True"
 
