@@ -34,22 +34,22 @@ pipeline {
             }
           }
         }
-        stage('clang-4') {
+        stage('clang-6') {
           agent {
             docker {
               reuseNode true
-              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-4-conan-1.2'
+              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-6-conan-1.2'
             }
           }
           steps {
-            sh './build.sh clang-4'
+            sh './build.sh clang-6'
           }
           post {
             always {
               step([
                 $class: 'WarningsPublisher', canComputeNew: false, canResolveRelativePaths: false,
                 defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '',
-                parserConfigurations: [[parserName: 'Clang (LLVM based)', pattern: 'build-clang-4/make.out']],
+                parserConfigurations: [[parserName: 'Clang (LLVM based)', pattern: 'build-clang-6/make.out']],
                 unHealthy: ''
               ])
             }
@@ -79,22 +79,22 @@ pipeline {
             }
           }
         }
-        stage('clang-4') {
+        stage('clang-6') {
           agent {
             docker {
               reuseNode true
-              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-4-conan-1.2'
+              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-6-conan-1.2'
             }
           }
           steps {
-            sh 'cd build-clang-4 && make test'
+            sh 'cd build-clang-6 && make test'
           }
           post {
             always {
               step([
                 $class: 'XUnitBuilder',
                 thresholds: [[$class: 'FailedThreshold', unstableThreshold: '1']],
-                tools: [[$class: 'GoogleTestType', pattern: 'build-clang-4/Testing/*.xml']]
+                tools: [[$class: 'GoogleTestType', pattern: 'build-clang-6/Testing/*.xml']]
               ])
             }
           }
