@@ -113,7 +113,7 @@ pipeline {
       }
       post {
         success {
-          archiveArtifacts artifacts: "build*/cpp-settings*", fingerprint: true
+          archiveArtifacts artifacts: "build*/record*", fingerprint: true
         }
       }
     }

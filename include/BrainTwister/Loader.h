@@ -8,18 +8,18 @@
 #include <vector>
 
 namespace BrainTwister {
-namespace SettingsDetails {
+namespace RecordDetails {
 
 template <class T>
-struct is_setting
+struct is_record
 {
   private:
     typedef char no;
     struct yes { no m[2]; };
 
     static T* make();
-    template<typename U>
-    static yes check(U*, typename U::is_setting* = 0);
+    template <typename U>
+    static yes check(U*, typename U::is_record* = 0);
     static no check(...);
 
   public:
@@ -27,15 +27,15 @@ struct is_setting
 };
 
 template <class T>
-struct is_base_setting
+struct is_record_base
 {
   private:
     typedef char no;
     struct yes { no m[2]; };
 
     static T* make();
-    template<typename U>
-    static yes check(U*, typename U::is_base_setting* = 0);
+    template <typename U>
+    static yes check(U*, typename U::is_record_base* = 0);
     static no check(...);
 
   public:
@@ -63,9 +63,9 @@ struct GenericLoader
     }
 };
 
-/// Specialization for nested settings
+/// Specialization for nested record
 template <class T>
-struct GenericLoader<T, typename std::enable_if<is_setting<T>::value>::type>
+struct GenericLoader<T, typename std::enable_if<is_record<T>::value>::type>
 {
     T operator () (boost::property_tree::ptree const& pt, std::string const& key, T def) const
     {
@@ -104,7 +104,7 @@ struct GenericLoader<std::list<T>>
 };
 
 template <class T>
-struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<!is_base_setting<T>::value>::type>
+struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<!is_record_base<T>::value>::type>
 {
     std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt, std::string const& key, std::shared_ptr<T> def) const
     {
@@ -123,7 +123,7 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<!is_base_settin
 };
 
 template <class T>
-struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting<T>::value>::type>
+struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_record_base<T>::value>::type>
 {
     std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt, std::string const& key, std::shared_ptr<T> def) const
     {
@@ -143,5 +143,5 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<is_base_setting
     }
 };
 
-} // namespace SettingsDetails
+} // namespace RecordDetails
 } // namespace BrainTwister

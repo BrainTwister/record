@@ -1,6 +1,5 @@
 #pragma once
 
-#include "SettingsDetails.h"
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/arithmetic/sub.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -12,6 +11,7 @@
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
+#include "Loader.h"
 
 // Initialization list of parameter constructor
 #define MACRO_SINGLE_INITIALIZE_ARGUMENTS(r,size,i,elem) \
@@ -60,7 +60,7 @@
 
 // List of arguments for loading by boost property tree
 #define MACRO_SINGLE_MEMBER_LOAD(r, size, i, elem) \
-    BOOST_PP_TUPLE_ELEM(3,1,elem)( ::BrainTwister::SettingsDetails::GenericLoader<BOOST_PP_TUPLE_ELEM(3,0,elem)>()(tree, \
+    BOOST_PP_TUPLE_ELEM(3,1,elem)( ::BrainTwister::RecordDetails::GenericLoader<BOOST_PP_TUPLE_ELEM(3,0,elem)>()(tree, \
     BOOST_PP_STRINGIZE(BOOST_PP_TUPLE_ELEM(3,1,elem)), BOOST_PP_TUPLE_ELEM(3,2,elem))) \
     BOOST_PP_COMMA_IF(BOOST_PP_SUB(BOOST_PP_SUB(size,i),1))
 

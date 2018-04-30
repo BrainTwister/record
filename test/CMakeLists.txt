@@ -1,4 +1,4 @@
-set(TestName cpp-settings-test)
+set(TestName record-test)
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/include
@@ -9,11 +9,11 @@ include_directories(
 add_executable(
   ${TestName}
   main.cpp
-  Settings1.cpp
-  Settings2.cpp
-  Settings3.cpp
-  Settings4.cpp
-  Settings5.cpp
+  Record1.cpp
+  Record2.cpp
+  Record3.cpp
+  Record4.cpp
+  Record5.cpp
 )
     
 target_link_libraries(

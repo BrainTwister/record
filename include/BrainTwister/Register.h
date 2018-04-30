@@ -1,7 +1,7 @@
 #pragma once
 
+#include "Loader.h"
 #include "Submacros.h"
-#include "SettingsDetails.h"
 #include <boost/property_tree/ptree.hpp>
 #include <stdexcept>
 
@@ -18,9 +18,9 @@
 // end macro PRINT_CASE_LIST_OF_DERIVED_CLASSES
 
 // Register for polymorphic classes
-#define BRAINTWISTER_SETTINGS_REGISTER(Base, DerivedList) \
+#define BRAINTWISTER_RECORD_REGISTER(Base, DerivedList) \
     namespace BrainTwister { \
-    namespace SettingsDetails { \
+    namespace RecordDetails { \
     template <> \
     std::shared_ptr<Base> PolymorphicLoader<Base>::operator()(boost::property_tree::ptree const& pt) const \
     { \
@@ -28,4 +28,4 @@
         throw std::runtime_error("Derived class " + pt.front().first + " not registered for " + BOOST_PP_STRINGIZE(Base) + "."); \
         return std::shared_ptr<Base>(); \
     }}}
-// end macro BRAINTWISTER_SETTINGS_REGISTER
+// end macro BRAINTWISTER_RECORD_REGISTER

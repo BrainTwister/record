@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(cpp-settings VERSION 0.2 LANGUAGES CXX)
+project(record VERSION 0.2 LANGUAGES CXX)
 
 message("${PROJECT_NAME} version ${PROJECT_VERSION}")
 message("CMake build type: ${CMAKE_BUILD_TYPE}")

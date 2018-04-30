@@ -1,14 +1,14 @@
 #pragma once
 
+#include "Loader.h"
 #include "Submacros.h"
-#include "SettingsDetails.h"
 #include <boost/property_tree/ptree.hpp>
 
 // Class definition
-#define BRAINTWISTER_SETTINGS(Name, Members) \
+#define BRAINTWISTER_RECORD(Name, Members) \
     struct Name \
     { \
-        typedef bool is_setting; \
+        typedef bool is_record; \
 \
         Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) \
          : PRINT_INITIALIZE_ARGUMENTS(Members) \
@@ -37,4 +37,4 @@
 \
         PRINT_CLASS_MEMBERS(Members) \
     };
-// end macro BRAINTWISTER_SETTINGS
+// end macro BRAINTWISTER_RECORD

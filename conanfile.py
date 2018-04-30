@@ -1,11 +1,10 @@
 from conans import ConanFile, CMake
 
-class CppsettingsConan(ConanFile):
+class RecordConan(ConanFile):
     
-    name = "cpp-settings"
-    version = "0.2"
+    name = "record"
+    version = "1.0"
     
-    # No settings/options are necessary, this is header only
     exports_sources = "include/*"
     no_copy_source = True
     
@@ -17,7 +16,8 @@ class CppsettingsConan(ConanFile):
     generators = "cmake"
     default_options = "Boost:header_only=True"
 
-    def build(self): # this is not building a library, just tests
+    def build(self):
+        # This is not building a library, just test
         cmake = CMake(self)
         cmake.configure()
         cmake.build()

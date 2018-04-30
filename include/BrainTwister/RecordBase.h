@@ -1,16 +1,16 @@
 #pragma once
 
+#include "Loader.h"
 #include "Submacros.h"
-#include "SettingsDetails.h"
 #include <boost/property_tree/ptree.hpp>
 #include <string>
 
 // Base class definition
-#define BRAINTWISTER_SETTINGS_BASE(Name, Members, Supplements) \
+#define BRAINTWISTER_RECORD_BASE(Name, Members, Supplements) \
     struct Name \
     { \
-        typedef bool is_setting; \
-        typedef bool is_base_setting; \
+        typedef bool is_record; \
+        typedef bool is_record_base; \
 \
         Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) \
          : PRINT_INITIALIZE_ARGUMENTS(Members) \
@@ -37,11 +37,11 @@
         Supplements \
 \
     };
-// end macro BRAINTWISTER_SETTINGS_BASE
+// end macro BRAINTWISTER_RECORD_BASE
 
 // Base class definition with no members
 // Members must be handled specially, because they can not be empty.
-#define BRAINTWISTER_SETTINGS_BASE_NO_MEMBERS(Name, Supplements) \
+#define BRAINTWISTER_RECORD_BASE_NO_MEMBERS(Name, Supplements) \
     struct Name \
     { \
         typedef bool is_setting; \
@@ -62,4 +62,4 @@
         Supplements \
 \
     };
-// end macro BRAINTWISTER_SETTINGS_BASE
+// end macro BRAINTWISTER_RECORD_BASE

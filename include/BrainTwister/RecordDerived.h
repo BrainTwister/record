@@ -1,15 +1,15 @@
 #pragma once
 
+#include "Loader.h"
 #include "Submacros.h"
-#include "SettingsDetails.h"
 #include <boost/property_tree/ptree.hpp>
 #include <string>
 
 // Derived class definition
-#define BRAINTWISTER_SETTINGS_DERIVED(Name, Base, Members, Supplements) \
+#define BRAINTWISTER_RECORD_DERIVED(Name, Base, Members, Supplements) \
     struct Name : Base \
     { \
-        typedef bool is_setting; \
+        typedef bool is_record; \
 \
         Name(PRINT_CONSTRUCTOR_ARGUMENTS(Members)) \
          : PRINT_INITIALIZE_ARGUMENTS(Members) \
@@ -38,4 +38,4 @@
         Supplements \
 \
     };
-// end macro BRAINTWISTER_SETTINGS_DERIVED
+// end macro BRAINTWISTER_RECORD_DERIVED
