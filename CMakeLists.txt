@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(record VERSION 0.2 LANGUAGES CXX)
+project(record VERSION 1.0 LANGUAGES CXX)
 
 message("${PROJECT_NAME} version ${PROJECT_VERSION}")
 message("CMake build type: ${CMAKE_BUILD_TYPE}")
@@ -18,6 +18,7 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
                  "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 
+# Conan setup
 include(${CMAKE_BINARY_DIR}/conan.cmake)
 conan_cmake_run(CONANFILE conanfile.py
                 BASIC_SETUP CMAKE_TARGETS
