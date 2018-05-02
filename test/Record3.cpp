@@ -1,11 +1,3 @@
-// Copyright (C) 2012-2015, Bernd Doser (service@braintwister.eu)
-// All rights reserved.
-//
-// This file is part of BrainTwister
-//
-// ANY USE OF THIS CODE CONSTITUTES ACCEPTANCE OF THE
-// TERMS OF THE COPYRIGHT NOTICE
-
 #include "BrainTwister/JSON.h"
 #include "BrainTwister/Record.h"
 #include "BrainTwister/XML.h"
@@ -28,14 +20,6 @@ BRAINTWISTER_RECORD(Record6, \
     ((int, i, 7)) \
     ((Record4, record1, Record4{}.set_i(125).set_d(30.7))) \
 )
-
-//TEST(Record3Test, is_setting)
-//{
-//    EXPECT_FALSE(BrainTwister::RecordDetails::is_setting<int>::value);
-//    EXPECT_TRUE(BrainTwister::RecordDetails::is_setting<Record4>::value);
-//    EXPECT_TRUE(BrainTwister::RecordDetails::is_setting<Record5>::value);
-//    EXPECT_TRUE(BrainTwister::RecordDetails::is_setting<Record6>::value);
-//}
 
 TEST(Record3Test, default1)
 {

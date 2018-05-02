@@ -1,11 +1,3 @@
-// BrainTwister Record
-// A heterogeneous data structure for C++
-//
-// Copyright (C) 2018, Bernd Doser (bernd.doser@braintwister.eu)
-// All rights reserved.
-//
-//
-
 #include "BrainTwister/JSON.h"
 #include "BrainTwister/Record.h"
 #include "BrainTwister/XML.h"

@@ -1,8 +1,25 @@
 BrainTwister Record
 ===================
 
-BrainTwister record provides a linear, direct-accessible, heterogeneous
-data structure. A record will be defined with a single macro
+A heterogeneous data structure for C++
+
+Copyright (C) 2018 Bernd Doser <bernd.doser@braintwister.eu>
+All rights reserved.
+
+BrainTwister Record is free software made available under the [MIT License](http://opensource.org/licenses/MIT). For details see [LICENSE](LICENSE.md).
+
+Requirements
+------------
+
+- Boost preprocessor
+- Boost property-tree
+- Google-test (optional)
+
+Description
+-----------
+
+BrainTwister record is a linear, direct-accessible, heterogeneous
+data structure, which is defined by
 
 ```
 BRAINTWISTER_RECORD( record_name, \
@@ -11,7 +28,7 @@ BRAINTWISTER_RECORD( record_name, \
 )
 ```
 
-for example a database connection record can be defined as
+For instance, a database connection can be defined as
 
 ```
 BRAINTWISTER_RECORD( Database, \
@@ -66,13 +83,6 @@ BRAINTWISTER_RECORD_DERIVED( derived_record_name, \
  virtual function \
 )
 ```
-
-Requirements
-------------
-
-- Boost preprocessor
-- Boost property-tree
-- Google-test (optional)
 
 conan.io
 --------
