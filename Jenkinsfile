@@ -2,10 +2,6 @@
 
 pipeline {
 
-  agent {
-    label 'docker'
-  }
-
   options {
     timeout(time: 1, unit: 'HOURS')
   }
@@ -17,7 +13,7 @@ pipeline {
           agent {
             docker {
               reuseNode true
-              image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.2'
+              image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.3'
             }
           }
           steps {
@@ -38,7 +34,7 @@ pipeline {
           agent {
             docker {
               reuseNode true
-              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-6-conan-1.2'
+              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-6-conan-1.3'
             }
           }
           steps {
@@ -63,7 +59,7 @@ pipeline {
           agent {
             docker {
               reuseNode true
-              image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.2'
+              image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.3'
             }
           }
           steps {
@@ -83,7 +79,7 @@ pipeline {
           agent {
             docker {
               reuseNode true
-              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-6-conan-1.2'
+              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-6-conan-1.3'
             }
           }
           steps {
@@ -105,7 +101,7 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.2'
+          image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.3'
         }
       }
       steps {
