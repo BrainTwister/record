@@ -8,12 +8,12 @@ include_directories(
 
 add_executable(
   ${TestName}
+  collections.cpp
   main.cpp
-  Record1.cpp
-  Record2.cpp
-  Record3.cpp
-  Record4.cpp
-  Record5.cpp
+  nested.cpp
+  pointer.cpp
+  polymorph.cpp
+  simple.cpp
 )
     
 target_link_libraries(
