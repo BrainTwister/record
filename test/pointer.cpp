@@ -28,7 +28,7 @@ TEST(Record4Test, parameter)
 
 TEST(Record4Test, json)
 {
-	Record7 record4{JSON{"{\"ptr_i\": 4}"}};
+    Record7 record4{JSON{"{\"ptr_i\": 4}"}};
 
     EXPECT_EQ(4, *record4.ptr_i);
 }

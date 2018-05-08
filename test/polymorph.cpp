@@ -12,19 +12,19 @@
 
 BRAINTWISTER_RECORD_BASE(RecordBase, \
     ((std::string, s1, "base")), \
-	virtual double operator ()() const = 0; \
+    virtual double operator ()() const = 0; \
 )
 
 BRAINTWISTER_RECORD_DERIVED(RecordDerived1, RecordBase, \
     ((int, i, 4)) \
     ((std::string, s2, "foo")), \
-	virtual double operator ()() const { return i; } \
+    virtual double operator ()() const { return i; } \
 )
 
 BRAINTWISTER_RECORD_DERIVED(RecordDerived2, RecordBase, \
     ((double, d, 2.3)) \
     ((std::string, s3, "bar")), \
-	virtual double operator ()() const { return d; } \
+    virtual double operator ()() const { return d; } \
 )
 
 BRAINTWISTER_RECORD_REGISTER(RecordBase, \
@@ -55,14 +55,14 @@ TEST(Record5Test, parameter_constructor)
 
 TEST(Record5Test, json)
 {
-	Record8 record5{JSON{"{\"p1\": {\"RecordDerived1\": {\"i\": 42}}}"}};
+    Record8 record5{JSON{"{\"p1\": {\"RecordDerived1\": {\"i\": 42}}}"}};
 
     EXPECT_EQ(42, std::dynamic_pointer_cast<RecordDerived1>(record5.p1)->i);
 }
 
 TEST(Record5Test, json2)
 {
-	Record8 record5{JSON{"{\"p1\": {\"RecordDerived1\": {\"i\": 42}}, \"p2\": {\"RecordDerived2\": {\"d\": 3.9}}}"}};
+    Record8 record5{JSON{"{\"p1\": {\"RecordDerived1\": {\"i\": 42}}, \"p2\": {\"RecordDerived2\": {\"d\": 3.9}}}"}};
 
     EXPECT_EQ(42, std::dynamic_pointer_cast<RecordDerived1>(record5.p1)->i);
     EXPECT_EQ(3.9, std::dynamic_pointer_cast<RecordDerived2>(record5.p2)->d);

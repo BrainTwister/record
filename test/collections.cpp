@@ -28,11 +28,11 @@ BRAINTWISTER_RECORD(Record4, \
 
 TEST(Record2Test, default)
 {
-	std::vector<Record2> v = std::vector<Record2>();
+    std::vector<Record2> v = std::vector<Record2>();
 
     EXPECT_EQ(0U, v.size());
 
-	std::vector<Record2> v2(v);
+    std::vector<Record2> v2(v);
 
     EXPECT_EQ(0U, v2.size());
 }
@@ -58,7 +58,7 @@ TEST(Record2Test, parameter)
 
 TEST(Record2Test, json)
 {
-	Record3 record2{JSON{"{\"v1\": [2, 3, 1], \"v2\": [{\"i\": 3, \"d\": 3.2, \"s\": \"bar\"}]}"}};
+    Record3 record2{JSON{"{\"v1\": [2, 3, 1], \"v2\": [{\"i\": 3, \"d\": 3.2, \"s\": \"bar\"}]}"}};
 
     EXPECT_EQ(2, record2.v1[0]);
     EXPECT_EQ(3, record2.v1[1]);
@@ -71,7 +71,7 @@ TEST(Record2Test, json)
 
 TEST(Record2Test, xml)
 {
-	Record3 record2{XML{"<v1><value>2</value><value>3</value><value>1</value></v1><v2><value><i>3</i><d>3.2</d><s>bar</s></value></v2>"}};
+    Record3 record2{XML{"<v1><value>2</value><value>3</value><value>1</value></v1><v2><value><i>3</i><d>3.2</d><s>bar</s></value></v2>"}};
 
     EXPECT_EQ(2, record2.v1[0]);
     EXPECT_EQ(3, record2.v1[1]);

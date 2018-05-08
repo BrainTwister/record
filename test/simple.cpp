@@ -77,7 +77,7 @@ TEST(Record1Test, ptree)
 
 TEST(Record1Test, json)
 {
-	Record record{JSON{"{\"i\": 42, \"d\": 3.8, \"s\": \"bar\"}"}};
+    Record record{JSON{"{\"i\": 42, \"d\": 3.8, \"s\": \"bar\"}"}};
 
     EXPECT_EQ(42, record.i);
     EXPECT_EQ(3.8, record.d);
@@ -86,7 +86,7 @@ TEST(Record1Test, json)
 
 TEST(Record1Test, json_unordered)
 {
-	Record record{JSON{"{\"s\": \"bar\", \"i\": 42, \"d\": 3.8}"}};
+    Record record{JSON{"{\"s\": \"bar\", \"i\": 42, \"d\": 3.8}"}};
 
     EXPECT_EQ(42, record.i);
     EXPECT_EQ(3.8, record.d);
@@ -95,7 +95,7 @@ TEST(Record1Test, json_unordered)
 
 TEST(Record1Test, json_default)
 {
-	Record record{JSON{"{\"i\": 42}"}};
+    Record record{JSON{"{\"i\": 42}"}};
 
     EXPECT_EQ(42, record.i);
     EXPECT_EQ(0.0, record.d);
@@ -104,7 +104,7 @@ TEST(Record1Test, json_default)
 
 TEST(Record1Test, xml)
 {
-	Record record{XML{"<i>42</i><d>3.8</d><s>bar</s>"}};
+    Record record{XML{"<i>42</i><d>3.8</d><s>bar</s>"}};
 
     EXPECT_EQ(42, record.i);
     EXPECT_EQ(3.8, record.d);
@@ -113,7 +113,7 @@ TEST(Record1Test, xml)
 
 TEST(Record1Test, xml_unordered)
 {
-	Record record{XML{"<s>bar</s><i>42</i><d>3.8</d>"}};
+    Record record{XML{"<s>bar</s><i>42</i><d>3.8</d>"}};
 
     EXPECT_EQ(42, record.i);
     EXPECT_EQ(3.8, record.d);
@@ -122,7 +122,7 @@ TEST(Record1Test, xml_unordered)
 
 TEST(Record1Test, xml_default)
 {
-	Record record{XML{"<i>42</i>"}};
+    Record record{XML{"<i>42</i>"}};
 
     EXPECT_EQ(42, record.i);
     EXPECT_EQ(0.0, record.d);

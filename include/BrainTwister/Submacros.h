@@ -45,8 +45,8 @@
 // Member setters
 #define MACRO_SINGLE_MEMBER_SETTER(r, data, elem) \
     /*constexpr*/ BOOST_PP_ARRAY_ELEM(0, data) BOOST_PP_CAT(set_, BOOST_PP_TUPLE_ELEM(3,1,elem)) \
-	(BOOST_PP_TUPLE_ELEM(3,0,elem) BOOST_PP_TUPLE_ELEM(3,1,elem)) const \
-	{ return { PRINT_CLASS_MEMBER_LIST(BOOST_PP_ARRAY_ELEM(1, data)) }; }
+    (BOOST_PP_TUPLE_ELEM(3,0,elem) BOOST_PP_TUPLE_ELEM(3,1,elem)) const \
+    { return { PRINT_CLASS_MEMBER_LIST(BOOST_PP_ARRAY_ELEM(1, data)) }; }
 
 #define PRINT_CLASS_MEMBER_SETTERS(name, members) \
     BOOST_PP_SEQ_FOR_EACH(MACRO_SINGLE_MEMBER_SETTER, (2, (name, members)), members)

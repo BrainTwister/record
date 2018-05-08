@@ -6,17 +6,17 @@
 
 struct JSON
 {
-	JSON(std::string const& json_string)
-	 : json_string(json_string)
-	{};
+    JSON(std::string const& json_string)
+     : json_string(json_string)
+    {}
 
-	boost::property_tree::ptree get_ptree() const
-	{
-	    std::stringstream ss{json_string};
-	    boost::property_tree::ptree tree;
-	    read_json(ss, tree);
-	    return tree;
-	}
+    boost::property_tree::ptree get_ptree() const
+    {
+        std::stringstream ss{json_string};
+        boost::property_tree::ptree tree;
+        read_json(ss, tree);
+        return tree;
+    }
 
-	std::string json_string;
+    std::string json_string;
 };
