@@ -1,3 +1,5 @@
+[![Build Status](https://jenkins.braintwister.eu/buildStatus/icon?job=BrainTwister/record/master)](https://jenkins.braintwister.eu/job/BrainTwister/job/record/job/master/)
+
 BrainTwister Record
 ===================
 
