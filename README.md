@@ -87,4 +87,4 @@ BRAINTWISTER_RECORD_DERIVED( derived_record_name, \
 conan.io
 --------
 
-C++ conan.io package is available at https://api.bintray.com/conan/braintwister/conan
+C++ conan.io package is available at https://bintray.com/braintwister/conan
