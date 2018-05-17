@@ -1,4 +1,5 @@
-Copyright (C) 2018 Bernd Doser <bernd.doser@braintwister.eu>
+Copyright (C) 2018 Bernd Doser, <bernd.doser@braintwister.eu>
+
 All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

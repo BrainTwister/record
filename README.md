@@ -1,21 +1,22 @@
 [![Build Status](https://jenkins.braintwister.eu/buildStatus/icon?job=BrainTwister/record/master)](https://jenkins.braintwister.eu/job/BrainTwister/job/record/job/master/)
 
-BrainTwister Record
+BrainTwister record
 ===================
 
 A heterogeneous data structure for C++
 
-Copyright (C) 2018 Bernd Doser <bernd.doser@braintwister.eu>
+Copyright (C) 2018 Bernd Doser, <bernd.doser@braintwister.eu>
+
 All rights reserved.
 
-BrainTwister Record is free software made available under the [MIT License](http://opensource.org/licenses/MIT). For details see [LICENSE](LICENSE.md).
+BrainTwister record is free software made available under the [MIT License]
+(http://opensource.org/licenses/MIT). For details see [LICENSE](LICENSE.md).
 
-Requirements
-------------
+conan.io
+--------
 
-- Boost preprocessor
-- Boost property-tree
-- Google-test (optional)
+C++ conan.io package is available at https://bintray.com/braintwister/conan
+
 
 Description
 -----------
@@ -85,8 +86,3 @@ BRAINTWISTER_RECORD_DERIVED( derived_record_name, \
  virtual function \
 )
 ```
-
-conan.io
---------
-
-C++ conan.io package is available at https://bintray.com/braintwister/conan
