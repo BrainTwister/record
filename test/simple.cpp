@@ -151,9 +151,13 @@ TEST(simple, istream)
     std::stringstream ss{R"(
         {
             "i": 42,
-			"d": 3.8,
-            "s": "bar"
+            "s": "bar",
+			"d": 3.8
         }
     )"};
-    Simple simple(JSON(ss));
+    Simple simple{JSON{ss}};
+
+    EXPECT_EQ(42, simple.i);
+    EXPECT_EQ(3.8, simple.d);
+    EXPECT_EQ("bar", simple.s);
 }
