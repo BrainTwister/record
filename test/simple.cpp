@@ -1,140 +1,159 @@
 #include "BrainTwister/JSON.h"
-#include "BrainTwister/Record.h"
 #include "BrainTwister/XML.h"
 #include "gtest/gtest.h"
-#include <string>
+#include "simple.h"
 
-// Test simple types
-
-BRAINTWISTER_RECORD(Record, \
-    ((int, i, 0)) \
-    ((double, d, 0.0)) \
-    ((std::string, s, "foo")) \
-)
-
-TEST(Record1Test, default)
+TEST(simple, default)
 {
-    Record record;
+    Simple simple;
 
-    EXPECT_EQ(0, record.i);
-    EXPECT_EQ(0.0, record.d);
-    EXPECT_EQ("foo", record.s);
+    EXPECT_EQ(0, simple.i);
+    EXPECT_EQ(0.0, simple.d);
+    EXPECT_EQ("foo", simple.s);
 }
 
-TEST(Record1Test, parameter)
+TEST(simple, parameter)
 {
-    Record record(42, 2.3);
+    Simple simple(42, 2.3);
 
-    EXPECT_EQ(42, record.i);
-    EXPECT_EQ(2.3, record.d);
+    EXPECT_EQ(42, simple.i);
+    EXPECT_EQ(2.3, simple.d);
 }
 
-TEST(Record1Test, builder)
+TEST(simple, builder)
 {
-    Record record = Record().set_i(16).set_d(3.9);
+    Simple simple = Simple().set_i(16).set_d(3.9);
 
-    EXPECT_EQ(16, record.i);
-    EXPECT_EQ(3.9, record.d);
+    EXPECT_EQ(16, simple.i);
+    EXPECT_EQ(3.9, simple.d);
 }
 
-TEST(Record1Test, builder_static)
+TEST(simple, builder_static)
 {
-    static Record record = Record().set_i(16).set_d(3.9);
+    static Simple simple = Simple().set_i(16).set_d(3.9);
 
-    EXPECT_EQ(16, record.i);
-    EXPECT_EQ(3.9, record.d);
+    EXPECT_EQ(16, simple.i);
+    EXPECT_EQ(3.9, simple.d);
 }
 
-TEST(Record1Test, copy_constructor)
+TEST(simple, copy_constructor)
 {
-    Record s1(42, 2.3);
-    Record s2(s1);
+    Simple s1(42, 2.3);
+    Simple s2(s1);
 
     EXPECT_EQ(42, s2.i);
     EXPECT_EQ(2.3, s2.d);
 }
 
-TEST(Record1Test, copy_operator)
+TEST(simple, copy_operator)
 {
-    Record s1 = Record().set_i(16).set_d(3.9).set_s("bar");
-    Record s2 = s1;
+    Simple s1 = Simple().set_i(16).set_d(3.9).set_s("bar");
+    Simple s2 = s1;
 
     EXPECT_EQ(16, s2.i);
     EXPECT_EQ(3.9, s2.d);
     EXPECT_EQ("bar", s2.s);
 }
 
-TEST(Record1Test, ptree)
+TEST(simple, ptree)
 {
     boost::property_tree::ptree pt;
     pt.put("i", "42");
     pt.put("d", "2.3");
-    Record record(pt);
+    Simple simple(pt);
 
-    EXPECT_EQ(42, record.i);
-    EXPECT_EQ(2.3, record.d);
+    EXPECT_EQ(42, simple.i);
+    EXPECT_EQ(2.3, simple.d);
 }
 
-TEST(Record1Test, json)
+TEST(simple, json)
 {
-    Record record{JSON{"{\"i\": 42, \"d\": 3.8, \"s\": \"bar\"}"}};
+    Simple simple{JSON{R"(
+        {
+            "i": 42,
+			"d": 3.8,
+            "s": "bar"
+        }
+    )"}};
 
-    EXPECT_EQ(42, record.i);
-    EXPECT_EQ(3.8, record.d);
-    EXPECT_EQ("bar", record.s);
+    EXPECT_EQ(42, simple.i);
+    EXPECT_EQ(3.8, simple.d);
+    EXPECT_EQ("bar", simple.s);
 }
 
-TEST(Record1Test, json_unordered)
+TEST(simple, json_unordered)
 {
-    Record record{JSON{"{\"s\": \"bar\", \"i\": 42, \"d\": 3.8}"}};
+    Simple simple{JSON{R"(
+        {
+            "s": "bar",
+            "i": 42,
+			"d": 3.8
+        }
+    )"}};
 
-    EXPECT_EQ(42, record.i);
-    EXPECT_EQ(3.8, record.d);
-    EXPECT_EQ("bar", record.s);
+    EXPECT_EQ(42, simple.i);
+    EXPECT_EQ(3.8, simple.d);
+    EXPECT_EQ("bar", simple.s);
 }
 
-TEST(Record1Test, json_default)
+TEST(simple, json_default)
 {
-    Record record{JSON{"{\"i\": 42}"}};
+    Simple simple{JSON{R"(
+        {
+            "i": 42
+        }
+    )"}};
 
-    EXPECT_EQ(42, record.i);
-    EXPECT_EQ(0.0, record.d);
-    EXPECT_EQ("foo", record.s);
+    EXPECT_EQ(42, simple.i);
+    EXPECT_EQ(0.0, simple.d);
+    EXPECT_EQ("foo", simple.s);
 }
 
-TEST(Record1Test, xml)
+TEST(simple, xml)
 {
-    Record record{XML{"<i>42</i><d>3.8</d><s>bar</s>"}};
+    Simple simple{XML{"<i>42</i><d>3.8</d><s>bar</s>"}};
 
-    EXPECT_EQ(42, record.i);
-    EXPECT_EQ(3.8, record.d);
-    EXPECT_EQ("bar", record.s);
+    EXPECT_EQ(42, simple.i);
+    EXPECT_EQ(3.8, simple.d);
+    EXPECT_EQ("bar", simple.s);
 }
 
-TEST(Record1Test, xml_unordered)
+TEST(simple, xml_unordered)
 {
-    Record record{XML{"<s>bar</s><i>42</i><d>3.8</d>"}};
+    Simple simple{XML{"<s>bar</s><i>42</i><d>3.8</d>"}};
 
-    EXPECT_EQ(42, record.i);
-    EXPECT_EQ(3.8, record.d);
-    EXPECT_EQ("bar", record.s);
+    EXPECT_EQ(42, simple.i);
+    EXPECT_EQ(3.8, simple.d);
+    EXPECT_EQ("bar", simple.s);
 }
 
-TEST(Record1Test, xml_default)
+TEST(simple, xml_default)
 {
-    Record record{XML{"<i>42</i>"}};
+    Simple simple{XML{"<i>42</i>"}};
 
-    EXPECT_EQ(42, record.i);
-    EXPECT_EQ(0.0, record.d);
-    EXPECT_EQ("foo", record.s);
+    EXPECT_EQ(42, simple.i);
+    EXPECT_EQ(0.0, simple.d);
+    EXPECT_EQ("foo", simple.s);
 }
 
-TEST(Record1Test, compare)
+TEST(simple, compare)
 {
-    Record s1(42, 2.3);
-    Record s2(s1);
-    Record s3;
+    Simple s1(42, 2.3);
+    Simple s2(s1);
+    Simple s3;
 
     EXPECT_EQ(s1, s2);
     EXPECT_NE(s1, s3);
+}
+
+TEST(simple, istream)
+{
+    std::stringstream ss{R"(
+        {
+            "i": 42,
+			"d": 3.8,
+            "s": "bar"
+        }
+    )"};
+    Simple simple(JSON(ss));
 }

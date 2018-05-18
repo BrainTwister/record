@@ -6,17 +6,16 @@
 
 struct XML
 {
-    XML(std::string const& xml_string)
-     : xml_string(xml_string)
-    {}
-
-    boost::property_tree::ptree get_ptree() const
+    XML(std::string const& s)
     {
-        std::stringstream ss{xml_string};
-        boost::property_tree::ptree tree;
-        read_xml(ss, tree);
-        return tree;
+        std::istringstream iss(s);
+        read_xml(iss, tree);
     }
 
-    std::string xml_string;
+    XML(std::istream& is)
+    {
+    	read_xml(is, tree);
+    }
+
+    boost::property_tree::ptree tree;
 };

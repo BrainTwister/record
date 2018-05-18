@@ -1,53 +1,35 @@
 #include "BrainTwister/JSON.h"
-#include "BrainTwister/Record.h"
 #include "BrainTwister/XML.h"
 #include "gtest/gtest.h"
-#include <vector>
+#include "nested.h"
 
-// Test nested structures
-
-BRAINTWISTER_RECORD(Record4, \
-    ((int, i, 3)) \
-    ((double, d, 2.7)) \
-)
-
-BRAINTWISTER_RECORD(Record5, \
-    ((int, i, 5)) \
-    ((Record4, record1, Record4{})) \
-)
-
-BRAINTWISTER_RECORD(Record6, \
-    ((int, i, 7)) \
-    ((Record4, record1, Record4{}.set_i(125).set_d(30.7))) \
-)
-
-TEST(Record3Test, default1)
+TEST(nested, default1)
 {
-    Record4 record1;
+    Nested1 nested1;
 
-    EXPECT_EQ(3, record1.i);
-    EXPECT_EQ(2.7, record1.d);
+    EXPECT_EQ(3, nested1.i);
+    EXPECT_EQ(2.7, nested1.d);
 }
 
-TEST(Record3Test, default2)
+TEST(nested, default2)
 {
-    Record5 record2;
+    Nested2 nested2;
 
-    EXPECT_EQ(5, record2.i);
-    EXPECT_EQ(3, record2.record1.i);
-    EXPECT_EQ(2.7, record2.record1.d);
+    EXPECT_EQ(5, nested2.i);
+    EXPECT_EQ(3, nested2.nested1.i);
+    EXPECT_EQ(2.7, nested2.nested1.d);
 }
 
-TEST(Record3Test, default3)
+TEST(nested, default3)
 {
-    Record6 record3;
+    Nested3 nested3;
 
-    EXPECT_EQ(7, record3.i);
-    EXPECT_EQ(125, record3.record1.i);
-    EXPECT_EQ(30.7, record3.record1.d);
+    EXPECT_EQ(7, nested3.i);
+    EXPECT_EQ(125, nested3.nested1.i);
+    EXPECT_EQ(30.7, nested3.nested1.d);
 }
 
-TEST(Record3Test, GenericLoader_int)
+TEST(nested, GenericLoader_int)
 {
     boost::property_tree::ptree tree;
     tree.put("i", "42");
@@ -56,53 +38,47 @@ TEST(Record3Test, GenericLoader_int)
     EXPECT_EQ(42, i);
 }
 
-TEST(Record3Test, GenericLoader_record)
+TEST(nested, GenericLoader_nested)
 {
     boost::property_tree::ptree leaf;
     leaf.put("i", "1");
     leaf.put("d", "2.5");
     boost::property_tree::ptree tree;
-    tree.add_child("record1", leaf);
-    auto record1 = BrainTwister::RecordDetails::GenericLoader<Record4>()(tree, "record1", Record4());
+    tree.add_child("nested1", leaf);
+    auto nested1 = BrainTwister::RecordDetails::GenericLoader<Nested1>()(tree, "nested1", Nested1());
 
-    EXPECT_EQ(1, record1.i);
+    EXPECT_EQ(1, nested1.i);
 }
 
-TEST(Record3Test, json1)
+TEST(nested, json)
 {
-    auto json = JSON{"{\"i\": 42, \"record1\": {\"i\": 33, \"d\": 3.8}}"};
-    auto i = BrainTwister::RecordDetails::GenericLoader<int>()(json.get_ptree(), "i", 0);
-    auto record1 = BrainTwister::RecordDetails::GenericLoader<Record4>()(json.get_ptree(), "record1", Record4());
+    Nested2 nested{JSON{R"(
+        {
+            "i": 42,
+            "nested1":
+            {
+                "i": 33,
+                "d": 3.8
+            }
+        }
+    )"}};
 
-    EXPECT_EQ(42, i);
-    EXPECT_EQ(33, record1.i);
-    EXPECT_EQ(3.8, record1.d);
+    EXPECT_EQ(42, nested.i);
+    EXPECT_EQ(33, nested.nested1.i);
+    EXPECT_EQ(3.8, nested.nested1.d);
 }
 
-TEST(Record3Test, json2)
+TEST(nested, xml)
 {
-    auto json = JSON{"{\"i\": 42, \"record1\": {\"i\": 33, \"d\": 3.8}}"};
-    auto record2 = Record5(json.get_ptree());
+    Nested2 nested2{XML{R"(
+       <i>42</i>
+       <nested1>
+           <i>33</i>
+           <d>3.8</d>
+       </nested1>
+    )"}};
 
-    EXPECT_EQ(42, record2.i);
-    EXPECT_EQ(33, record2.record1.i);
-    EXPECT_EQ(3.8, record2.record1.d);
-}
-
-TEST(Record3Test, json3)
-{
-    Record5 record2{JSON{"{\"i\": 42, \"record1\": {\"i\": 33, \"d\": 3.8}}"}};
-
-    EXPECT_EQ(42, record2.i);
-    EXPECT_EQ(33, record2.record1.i);
-    EXPECT_EQ(3.8, record2.record1.d);
-}
-
-TEST(Record3Test, xml)
-{
-    Record5 record2{XML{"<i>42</i><record1><i>33</i><d>3.8</d></record1>"}};
-
-    EXPECT_EQ(42, record2.i);
-    EXPECT_EQ(33, record2.record1.i);
-    EXPECT_EQ(3.8, record2.record1.d);
+    EXPECT_EQ(42, nested2.i);
+    EXPECT_EQ(33, nested2.nested1.i);
+    EXPECT_EQ(3.8, nested2.nested1.d);
 }

@@ -20,7 +20,7 @@
 \
         template <class MarkupHandler> \
         Name(MarkupHandler const& markup_handler) \
-         : Name(markup_handler.get_ptree()) \
+         : Name(markup_handler.tree) \
         {} \
 \
         bool operator == (Name const& other) const \

@@ -42,12 +42,6 @@ struct is_record_base
     static bool const value = sizeof(check(make())) == sizeof(yes);
 };
 
-template <class Base>
-struct PolymorphicLoader
-{
-    std::shared_ptr<Base> operator () (boost::property_tree::ptree const& pt) const;
-};
-
 /// Primary template for fundamental types
 template <class T, class Enable = void>
 struct GenericLoader
@@ -120,6 +114,14 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<!is_record_base
 
         return std::shared_ptr<T>(new T(pt.get_value<T>()));
     }
+};
+
+/// Load polymorphic structures
+/// Specializations are in Register.h
+template <class Base>
+struct PolymorphicLoader
+{
+    std::shared_ptr<Base> operator () (boost::property_tree::ptree const& pt) const;
 };
 
 template <class T>

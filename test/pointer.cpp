@@ -1,34 +1,44 @@
 #include "BrainTwister/JSON.h"
-#include "BrainTwister/Record.h"
 #include "BrainTwister/XML.h"
 #include "gtest/gtest.h"
-#include <memory>
-#include <vector>
+#include "pointer.h"
 
-// Test pointer
-
-BRAINTWISTER_RECORD(Record7, \
-    ((std::shared_ptr<int>, ptr_i, std::shared_ptr<int>())) \
-)
-
-TEST(Record4Test, default)
+TEST(pointer, default)
 {
-    Record7 record;
+    Pointer pointer;
 
-    EXPECT_EQ(std::shared_ptr<int>(), record.ptr_i);
+    EXPECT_EQ(42, *pointer.p);
 }
 
-TEST(Record4Test, parameter)
+TEST(pointer, parameter)
 {
-    auto ptr_i = std::make_shared<int>(4);
-    Record7 record4(ptr_i);
+    auto p = std::make_shared<int>(4);
+    Pointer pointer(p);
 
-    EXPECT_EQ(4, *record4.ptr_i);
+    EXPECT_EQ(4, *pointer.p);
 }
 
-TEST(Record4Test, json)
+TEST(pointer, builder)
 {
-    Record7 record4{JSON{"{\"ptr_i\": 4}"}};
+    auto pointer = Pointer().set_p(std::make_shared<int>(4));
 
-    EXPECT_EQ(4, *record4.ptr_i);
+    EXPECT_EQ(4, *pointer.p);
+}
+
+TEST(pointer, json)
+{
+    Pointer pointer{JSON{R"(
+        {
+            "p": 4
+        }
+    )"}};
+
+    EXPECT_EQ(4, *pointer.p);
+}
+
+TEST(pointer, xml)
+{
+    Pointer pointer(XML("<p>4</p>"));
+
+    EXPECT_EQ(4, *pointer.p);
 }
