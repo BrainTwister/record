@@ -105,14 +105,14 @@ struct GenericLoader<std::shared_ptr<T>, typename std::enable_if<!is_record_base
         if (pt.count(key) == 0) return def;
         else if (pt.count(key) > 1) throw std::runtime_error("More than one key found for " + key + ".");
 
-        return std::shared_ptr<T>(new T(pt.get<T>(key)));
+        return std::make_shared<T>(pt.get<T>(key));
     }
 
     std::shared_ptr<T> operator () (boost::property_tree::ptree const& pt) const
     {
         if (pt.size() != 1) throw std::runtime_error("More or less than one child for implicit tree node.");
 
-        return std::shared_ptr<T>(new T(pt.get_value<T>()));
+        return std::make_shared<T>(pt.get_value<T>());
     }
 };
 
