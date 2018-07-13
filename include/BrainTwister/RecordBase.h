@@ -44,8 +44,8 @@
 #define BRAINTWISTER_RECORD_BASE_NO_MEMBERS(Name, Supplements) \
     struct Name \
     { \
-        typedef bool is_setting; \
-        typedef bool is_base_setting; \
+        typedef bool is_record; \
+        typedef bool is_record_base; \
 \
         virtual ~Name() {}; \
 \

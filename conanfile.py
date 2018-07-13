@@ -3,7 +3,7 @@ from conans import ConanFile, CMake
 class RecordConan(ConanFile):
     
     name = "record"
-    version = "1.0"
+    version = "1.1"
     license = "MIT"
     description = "A heterogeneous data structure for C++"
     homepage = "https://braintwister.eu"
