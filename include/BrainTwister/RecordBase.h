@@ -20,6 +20,11 @@
          : PRINT_CLASS_MEMBERS_LOAD(Members) \
         {} \
 \
+        template <class MarkupHandler> \
+        Name(MarkupHandler const& markup_handler) \
+         : Name(markup_handler.tree) \
+        {} \
+\
         virtual ~Name() {}; \
 \
         virtual bool operator == (Name const& other) const \
