@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(record VERSION 1.1 LANGUAGES CXX)
+project(record VERSION 1.2 LANGUAGES CXX)
 
 message("${PROJECT_NAME} version ${PROJECT_VERSION}")
 message("CMake build type: ${CMAKE_BUILD_TYPE}")
@@ -12,7 +12,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # Download conan
 if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
    message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-   file(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/v0.11/conan.cmake"
+   file(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/v0.15/conan.cmake"
                  "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 

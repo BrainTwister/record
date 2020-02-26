@@ -3,7 +3,7 @@ from conans import ConanFile, CMake
 class RecordConan(ConanFile):
     
     name = "record"
-    version = "1.1"
+    version = "1.2"
     license = "MIT"
     description = "A heterogeneous data structure for C++"
     homepage = "https://braintwister.eu"
@@ -14,8 +14,7 @@ class RecordConan(ConanFile):
     
     settings = "os", "compiler", "build_type", "arch"
     requires = \
-        "boost_preprocessor/1.66.0@bincrafters/stable", \
-        "boost_property_tree/1.66.0@bincrafters/stable", \
+        "boost/1.71.0@conan/stable", \
         "gtest/1.8.0@bincrafters/stable"
     generators = "cmake"
     default_options = "Boost:header_only=True"
