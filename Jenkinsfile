@@ -105,7 +105,7 @@ pipeline {
       }
       post {
         success {
-          archiveArtifacts artifacts: "build*/BlasBooster*", fingerprint: true
+          archiveArtifacts artifacts: "build*/*.deb", fingerprint: true
         }
       }
     }
