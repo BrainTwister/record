@@ -13,45 +13,37 @@ pipeline {
   stages {
     stage('Build') {
       parallel {
-        stage('gcc-5') {
+        stage('gcc-8') {
           agent {
             docker {
               reuseNode true
-              image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.3'
+              image 'braintwister/ubuntu-18.04-gcc-8'
             }
           }
           steps {
-            sh './build.sh gcc-5'
+            sh './build.sh gcc-8'
           }
           post {
             always {
-              step([
-                $class: 'WarningsPublisher', canComputeNew: false, canResolveRelativePaths: false,
-                defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '',
-                parserConfigurations: [[parserName: 'GNU Make + GNU C Compiler (gcc)', pattern: 'build-gcc-5/make.out']],
-                unHealthy: ''
-              ])
+              recordIssues enabledForFailure: true, aggregatingResults: false,
+                tool: gcc(id: 'gcc-8', pattern: 'build-gcc-8/make.out')
             }
           }
         }
-        stage('clang-6') {
+        stage('clang-9') {
           agent {
             docker {
               reuseNode true
-              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-6-conan-1.3'
+              image 'braintwister/ubuntu-18.04-clang-9'
             }
           }
           steps {
-            sh './build.sh clang-6'
+            sh './build.sh clang-9'
           }
           post {
             always {
-              step([
-                $class: 'WarningsPublisher', canComputeNew: false, canResolveRelativePaths: false,
-                defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '',
-                parserConfigurations: [[parserName: 'Clang (LLVM based)', pattern: 'build-clang-6/make.out']],
-                unHealthy: ''
-              ])
+              recordIssues enabledForFailure: true, aggregatingResults: false,
+                tool: gcc(id: 'clang-9', pattern: 'build-clang-9/make.out')
             }
           }
         }
@@ -59,42 +51,42 @@ pipeline {
     }
     stage('Test') {
       parallel {
-        stage('gcc-5') {
+        stage('gcc-8') {
           agent {
             docker {
               reuseNode true
-              image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.3'
+              image 'braintwister/ubuntu-18.04-gcc-8'
             }
           }
           steps {
-            sh 'cd build-gcc-5 && make test'
+            sh 'cd build-gcc-8 && make test'
           }
           post {
             always {
               step([
                 $class: 'XUnitBuilder',
                 thresholds: [[$class: 'FailedThreshold', unstableThreshold: '1']],
-                tools: [[$class: 'GoogleTestType', pattern: 'build-gcc-5/Testing/*.xml']]
+                tools: [[$class: 'GoogleTestType', pattern: 'build-gcc-8/Testing/*.xml']]
               ])
             }
           }
         }
-        stage('clang-6') {
+        stage('clang-9') {
           agent {
             docker {
               reuseNode true
-              image 'braintwister/ubuntu-16.04-cmake-3.11-clang-6-conan-1.3'
+              image 'braintwister/ubuntu-18.04-clang-9'
             }
           }
           steps {
-            sh 'cd build-clang-6 && make test'
+            sh 'cd build-clang-9 && make test'
           }
           post {
             always {
               step([
                 $class: 'XUnitBuilder',
                 thresholds: [[$class: 'FailedThreshold', unstableThreshold: '1']],
-                tools: [[$class: 'GoogleTestType', pattern: 'build-clang-6/Testing/*.xml']]
+                tools: [[$class: 'GoogleTestType', pattern: 'build-clang-9/Testing/*.xml']]
               ])
             }
           }
@@ -105,15 +97,15 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image 'braintwister/ubuntu-16.04-cmake-3.11-gcc-5-conan-1.3'
+          image 'braintwister/ubuntu-18.04-gcc-8'
         }
       }
       steps {
-        sh 'cd build-gcc-5 && make package'
+        sh 'cd build-gcc-8 && make package'
       }
       post {
         success {
-          archiveArtifacts artifacts: "build*/record*", fingerprint: true
+          archiveArtifacts artifacts: "build*/BlasBooster*", fingerprint: true
         }
       }
     }
