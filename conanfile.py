@@ -14,8 +14,8 @@ class RecordConan(ConanFile):
     
     settings = "os", "compiler", "build_type", "arch"
     requires = \
-        "boost/1.71.0@conan/stable", \
-        "gtest/1.8.0@bincrafters/stable"
+        "boost/1.71.0", \
+        "gtest/1.8.1"
     generators = "cmake"
     default_options = "Boost:header_only=True"
 
