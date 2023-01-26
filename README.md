@@ -1,4 +1,4 @@
-[![Build Status](https://jenkins.braintwister.eu/buildStatus/icon?job=BrainTwister/record/master)](https://jenkins.braintwister.eu/job/BrainTwister/job/record/job/master/)
+[![Build Status](https://github.com/BrainTwister/record/actions/workflows/cmake.yml/badge.svg)](https://github.com/BrainTwister/record/actions/workflows/cmake.yml)
 
 BrainTwister record
 ===================
